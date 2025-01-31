@@ -1,0 +1,6 @@
+@import "tailwindcss";
+@import "@nuxt/ui";
+
+body {
+  @apply grid place-content-center h-screen bg-neutral-950;
+}
