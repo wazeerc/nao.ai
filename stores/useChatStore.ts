@@ -16,8 +16,12 @@ export const useChatStore = defineStore('chat', () => {
   async function sendMessage(text: string) {
     addMessage(text, true);
 
-    const response = await fetchLlamaResponse(text);
-    addMessage(response, false);
+    try {
+      const response = await fetchLlamaResponse(text);
+      addMessage(response, false);
+    } catch (error) {
+      addMessage('Sorry, I encountered an error. Please try again.', false);
+    }
   }
 
   function resetChat() {
