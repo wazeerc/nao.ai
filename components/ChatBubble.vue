@@ -8,7 +8,7 @@ defineProps<{
 </script>
 
 <template>
-  <span :class="cn('text-zinc-200 shadow-xs rounded-xl px-3 py-1 w-fit',
+  <span :class="cn('text-zinc-200 shadow-xs rounded-xl px-4 py-2 w-fit',
     isUser ? 'bg-slate-900' : 'bg-slate-800')">
     {{ message }}
   </span>
