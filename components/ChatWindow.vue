@@ -1,16 +1,16 @@
 <script setup>
-import { ref } from 'vue';
-const defaultMsg = ref('Hello');
-const defaultMsg2 = ref('Hi');
+const store = useChatStore();
 </script>
 
 <template>
-  <section class="flex flex-col gap-4 w-full">
-    <div class="flex flex-col w-full gap-4 items-end">
-      <ChatBubble :message="defaultMsg" />
-    </div>
-    <div class="flex flex-col w-full gap-4">
-      <ChatBubble :message="defaultMsg2" />
-    </div>
+  <section class="flex flex-col gap-4 w-full overflow-y-auto">
+    <template v-for="(message, index) in store.messages"
+              :key="index">
+      <div class="flex flex-col w-full gap-4"
+           :class="message.isUser ? 'items-end' : 'items-start'">
+        <ChatBubble :message="message.text"
+                    :isUser="message.isUser" />
+      </div>
+    </template>
   </section>
 </template>
