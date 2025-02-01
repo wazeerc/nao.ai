@@ -20,7 +20,7 @@ const handleNewMessage = () => {
     <UButton icon="i-heroicons-paper-airplane"
              size="md"
              color="primary"
-             :variant="!chatInput ? 'outline' : 'solid'"
+             :disabled="!chatInput"
              @click="handleNewMessage" />
   </div>
 </template>

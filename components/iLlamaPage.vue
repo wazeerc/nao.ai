@@ -8,7 +8,8 @@ const store = useChatStore();
              size="md"
              color="neutral"
              variant="ghost"
-             @click="store.resetChat" />
+             @click="store.resetChat"
+             :disabled="!store.messages.length" />
   </aside>
   <main class="flex flex-col gap-4 p-6 bg-zinc-950 rounded-lg shadow-lg
         border-2 border-zinc-800/40 h-[80vh] w-[80vw] relative">
