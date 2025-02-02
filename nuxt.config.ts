@@ -19,6 +19,7 @@ export default defineNuxtConfig({
       API: process.env.oLlama_API,
     }
   },
+  ssr: false,
   vite: {
     plugins: [
       tailwindcss(),
