@@ -7,11 +7,9 @@ export function cn(...inputs: ClassValue[]): string {
 
 export async function fetchLlamaResponse(input: string): Promise<string> {
   try {
-    const config = useRuntimeConfig();
-    const API = config.public.API;
     const model = 'llama3.2';
 
-    const response = await fetch(API, {
+    const response = await fetch("http://localhost:11434/api/generate", {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

@@ -14,11 +14,6 @@ export default defineNuxtConfig({
     '@nuxt/ui',
     '@pinia/nuxt'
   ],
-  runtimeConfig: {
-    public: {
-      API: process.env.oLlama_API,
-    }
-  },
   ssr: false,
   vite: {
     plugins: [
