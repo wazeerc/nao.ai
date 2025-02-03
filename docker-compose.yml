@@ -1,0 +1,22 @@
+services:
+  ollama:
+    image: ollama/ollama
+    container_name: ollama
+    ports:
+      - "11434:11434"
+    command: "serve && ollama pull llama3.2 && ollama run 3.2"
+    volumes:
+      - ollama_data:/root/.ollama
+
+  nuxt-app:
+    build: .
+    container_name: nuxt-app
+    ports:
+      - "3000:3000"
+    depends_on:
+      - ollama
+    environment:
+      - OLLAMA_API_URL=http://ollama:11434/
+
+volumes:
+  ollama_data:
