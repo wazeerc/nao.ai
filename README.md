@@ -1,75 +1,45 @@
-# Nuxt Minimal Starter
+# iLlama - A web built with Nuxt for Llama3.2
 
-Look at the [Nuxt documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.
+A web interface built with Nuxt.js for interacting with Llama 3.2 language model.
 
-## Setup
+## Prerequisites
 
-Make sure to install dependencies:
+- Docker
+- Docker Compose
+- Node.js (for local development)
+- pnpm
+- oLlama (for local development)
 
+## Docker Setup
+
+1. Clone the repository:
 ```bash
-# npm
-npm install
+git clone <repository-url>
+cd iLlama
+```
 
-# pnpm
+2. Start the application using Docker Compose:
+```bash
+docker compose up
+```
+
+The application will be available at `http://localhost:3000`
+
+## Local Development Setup
+
+1. Install dependencies and start dev server:
+```bash
 pnpm install
-
-# yarn
-yarn install
-
-# bun
-bun install
-```
-
-## Development Server
-
-Start the development server on `http://localhost:3000`:
-
-```bash
-# npm
-npm run dev
-
-# pnpm
 pnpm dev
-
-# yarn
-yarn dev
-
-# bun
-bun run dev
 ```
 
-## Production
+2. Install [oLlama](https://ollama.com)
 
-Build the application for production:
-
+3. Pull and run the required model:
 ```bash
-# npm
-npm run build
-
-# pnpm
-pnpm build
-
-# yarn
-yarn build
-
-# bun
-bun run build
+ollama pull llama2
+ollama run llama2
 ```
 
-Locally preview production build:
+The development server will be available at `http://localhost:3000`
 
-```bash
-# npm
-npm run preview
-
-# pnpm
-pnpm preview
-
-# yarn
-yarn preview
-
-# bun
-bun run preview
-```
-
-Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.
