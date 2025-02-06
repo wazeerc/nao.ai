@@ -18,13 +18,14 @@ const formattedMessage = computed(() => {
     <article v-if="!isLoading"
              :class="cn(
               'text-zinc-200 shadow-xs rounded-xl px-4 py-2 max-w-full',
-              isUser ? 'bg-slate-900' : 'bg-slate-800 prose prose-invert prose-sm',
+              isUser ? 'bg-slate-900 motion-preset-slide-left' : 'bg-slate-800 motion-preset-slide-right prose prose-invert prose-sm',
               'prose-p:my-0 prose-ul:my-0 prose-li:my-0 prose-pre:my-0 prose-code:text-zinc-200'
             )"
              v-html="formattedMessage" />
 
     <article v-else
-             class="flex items-center gap-2 bg-slate-800 shadow-xs rounded-xl px-4 py-2">
+             class="flex items-center gap-2 bg-slate-800 shadow-xs rounded-xl px-4 py-2
+             motion-preset-blur-right">
       <div class="w-2 h-2 bg-emerald-500 rounded-full animate-pulse" />
       <span class="text-zinc-300 text-sm">🦙 Llama is thinking...</span>
     </article>
