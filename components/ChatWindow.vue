@@ -18,7 +18,8 @@ watch(() => store.messages, () => {
       <div class="flex flex-col w-full gap-4"
            :class="message.isUser ? 'items-end' : 'items-start'">
         <ChatBubble :message="message.text"
-                    :isUser="message.isUser" />
+                    :isUser="message.isUser"
+                    :isLoading="!message.isUser && index === store.messages.length - 1 && store.isLoading" />
       </div>
     </template>
   </section>
