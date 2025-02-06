@@ -4,9 +4,10 @@ services:
     container_name: ollama
     ports:
       - "11434:11434"
-    command: "serve && ollama pull llama3.2 && ollama run 3.2"
     volumes:
       - ollama_data:/root/.ollama
+      - ./entrypoint.sh:/entrypoint.sh
+    entrypoint: ["/bin/sh", "/entrypoint.sh"]
 
   nuxt-app:
     build: .
