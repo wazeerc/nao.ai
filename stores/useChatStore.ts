@@ -20,7 +20,7 @@ export const useChatStore = defineStore('chat', () => {
       const response = await fetchLlamaResponse(text);
       addMessage(response, false);
     } catch (error) {
-      addMessage('Sorry, I encountered an error. Please try again.', false);
+      addMessage('Sorry, I encountered an error. Please ensure OLlama is running and try again.', false);
     }
   }
 
