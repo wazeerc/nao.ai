@@ -1,6 +1,6 @@
 # iLlama - A web app built with Nuxt for Llama3.2
 
-A web interface built with Nuxt.js for interacting with Llama 3.2 language model.
+A web interface built with Nuxt.js for interacting with Llama 3.2 language model locally.
 
 ## Prerequisites
 
