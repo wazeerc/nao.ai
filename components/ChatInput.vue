@@ -12,15 +12,33 @@ const handleNewMessage = () => {
 </script>
 
 <template>
-  <div class="flex justify-between gap-4">
-    <UInput class="w-[98%]"
-            v-model="chatInput"
-            placeholder="Say hi to Llama! 🦙"
-            @keyup.enter="handleNewMessage" />
-    <UButton icon="i-heroicons-paper-airplane"
-             size="md"
-             color="primary"
-             :disabled="!chatInput"
-             @click="handleNewMessage" />
+  <div class="flex justify-between gap-4 max-h-32">
+    <div class="w-full">
+      <UTextarea class="w-full"
+                 autoresize
+                 autofocus
+                 :rows="1"
+                 :maxrows="5"
+                 color="primary"
+                 variant="outline"
+                 v-model="chatInput"
+                 placeholder="🦙 Ask Llama anything..."
+                 @keydown="(e) => {
+                  if (e.key === 'Enter' && !e.shiftKey) {
+                    e.preventDefault();
+                    handleNewMessage();
+                  }
+                }"
+                 :ui="{
+                  base: 'resize-none bg-(--ui-bg-elevated)/50'
+                }" />
+    </div>
+    <div class="mt-auto">
+      <UButton icon="i-heroicons-paper-airplane"
+               size="md"
+               color="primary"
+               :disabled="!chatInput"
+               @click="handleNewMessage" />
+    </div>
   </div>
 </template>
