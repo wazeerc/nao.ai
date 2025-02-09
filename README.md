@@ -20,7 +20,12 @@ cd iLlama
 
 2. Start the application using Docker Compose:
 ```bash
-docker compose up
+docker compose up -d
+```
+
+3. Stop the application using Docker Compose:
+```bash
+docker compose down
 ```
 
 The application will be available at `http://localhost:3000`
@@ -37,8 +42,8 @@ pnpm dev
 
 3. Pull and run the required model:
 ```bash
-ollama pull llama2
-ollama run llama2
+ollama pull llama3.2
+ollama run llama3.2
 ```
 
 The development server will be available at `http://localhost:3000`
