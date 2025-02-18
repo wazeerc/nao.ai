@@ -1,9 +1,13 @@
 <script setup>
 const store = useChatStore();
+
+const config = useRuntimeConfig();
+const model = config.public.llamaModel;
 </script>
 
 <template>
-  <aside class="inline-flex w-full mb-1 items-end justify-end">
+  <aside class="inline-flex w-full mb-1 items-center justify-between">
+    <p class="p-1 text-slate-600 font-medium text-sm italic">Model: {{ model }}</p>
     <UButton icon="i-heroicons-arrow-path"
              size="md"
              color="neutral"
