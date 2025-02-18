@@ -7,7 +7,13 @@ export function cn(...inputs: ClassValue[]): string {
 
 export async function fetchLlamaResponse(input: string): Promise<string> {
   try {
-    const model = 'llama3.2';
+    const config = useRuntimeConfig();
+    const model = config.public.llamaModel;
+
+    if (!model) {
+      console.error('Runtime config:', config.public);
+      throw new Error('Llama model not found in runtime config');
+    }
 
     const response = await fetch("http://localhost:11434/api/generate", {
       method: 'POST',

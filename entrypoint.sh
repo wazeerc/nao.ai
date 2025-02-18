@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 set -e
 
 # Start Ollama in the background
@@ -10,9 +10,9 @@ until ollama list > /dev/null 2>&1; do
     sleep 2
 done
 
-# Pull the required model
-echo "Pulling llama3.2 model..."
-ollama pull llama3.2
+# Pull the required model using the environment variable
+echo "Pulling ${LLAMA_MODEL} model..."
+ollama pull ${LLAMA_MODEL}
 
 # Kill the background Ollama process
 pkill ollama

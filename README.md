@@ -1,6 +1,6 @@
-# iLlama - A web app built with Nuxt for Llama3.2
+# iLlama - A web app built with Nuxt for Llama Models
 
-A web interface built with Nuxt.js for interacting with Llama 3.2 language model locally.
+A web interface built with Nuxt for interacting with any OLlama language model locally.
 
 ## Prerequisites
 
@@ -9,6 +9,22 @@ A web interface built with Nuxt.js for interacting with Llama 3.2 language model
 - Node.js (for local development)
 - pnpm
 - oLlama (for local development)
+
+## Environment Setup
+
+1. Create a `.env` file in the root directory:
+```bash
+cp .env.example .env
+```
+
+2. Configure your model in the `.env` file:
+```bash
+# Model Configuration
+NUXT_PUBLIC_LLAMA_MODEL="deepseek-r1:1.5b"
+LLAMA_MODEL="deepseek-r1:1.5b"
+```
+
+Note: Both environment variables should typically use the same model name.
 
 ## Docker Setup
 
@@ -40,11 +56,30 @@ pnpm dev
 
 2. Install [oLlama](https://ollama.com)
 
-3. Pull and run the required model:
+3. Pull and run your desired model:
 ```bash
-ollama pull llama3.2
-ollama run llama3.2
+ollama run deepseek-r1:1.5b  # Replace 'deepseek-r1:1.5b' with your actual model name
 ```
 
 The development server will be available at `http://localhost:3000`
+
+## Available Models
+
+You can use any model supported by oLlama. Some popular options include:
+- deepseek
+- codellama
+- mistral
+- llama2
+
+The model name in your `.env` file must match exactly with the model name from oLlama's library.
+For example: `deepseek-r1:1.5b` not just `deepseek`.
+
+Check [oLlama's model library](https://ollama.com/library) for more options.
+
+## Environment Variables
+
+- `NUXT_PUBLIC_LLAMA_MODEL`: Model name used by the frontend
+- `LLAMA_MODEL`: Model name for Docker container to pull
+
+Both variables should typically match and use the exact model name from oLlama's library.
 

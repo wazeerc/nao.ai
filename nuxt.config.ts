@@ -19,5 +19,10 @@ export default defineNuxtConfig({
     plugins: [
       tailwindcss(),
     ]
+  },
+  runtimeConfig: {
+    public: {
+      llamaModel: process.env.NUXT_PUBLIC_LLAMA_MODEL
+    }
   }
 });
