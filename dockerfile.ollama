@@ -1,0 +1,10 @@
+FROM ollama/ollama
+
+COPY entrypoint.sh /entrypoint.sh
+# Convert DOS line endings to Unix and make executable
+RUN tr -d '\r' < /entrypoint.sh > /entrypoint.tmp \
+  && mv /entrypoint.tmp /entrypoint.sh \
+  && chmod +x /entrypoint.sh
+
+SHELL ["/bin/sh", "-c"]
+ENTRYPOINT ["/bin/sh", "/entrypoint.sh"]

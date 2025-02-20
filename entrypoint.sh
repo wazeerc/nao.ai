@@ -1,12 +1,11 @@
-#!/bin/bash
-set -e
+#!/bin/sh
 
 # Start Ollama in the background
 ollama serve &
 
 # Wait for Ollama to be available
 echo "Waiting for Ollama to start..."
-until ollama list > /dev/null 2>&1; do
+while ! ollama list > /dev/null 2>&1; do
     sleep 2
 done
 

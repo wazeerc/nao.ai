@@ -1,15 +1,15 @@
 services:
   ollama:
-    image: ollama/ollama
+    build:
+      context: .
+      dockerfile: dockerfile.ollama
     container_name: ollama
     ports:
       - "11434:11434"
     volumes:
       - ollama_data:/root/.ollama
-      - ./entrypoint.sh:/entrypoint.sh:ro
     environment:
       - LLAMA_MODEL=${LLAMA_MODEL}
-    entrypoint: ["/bin/sh", "/entrypoint.sh"]
 
   nuxt-app:
     build: .
