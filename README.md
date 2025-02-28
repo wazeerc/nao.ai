@@ -10,6 +10,14 @@ A web interface built with Nuxt for interacting with any OLlama language model l
 - pnpm
 - oLlama (for local development)
 
+## Technologies & Dependencies
+
+- Nuxt.js 3
+- Nuxt UI 3
+- Tailwind CSS v4
+- [TailwindCSS Motion](https://github.com/romboHQ/tailwindcss-motion)
+- [Marked](https://github.com/markedjs/marked)
+
 ## Environment Setup
 
 1. Create a `.env` file in the root directory:
