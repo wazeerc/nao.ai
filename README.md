@@ -1,4 +1,4 @@
-# iLlama - A web app built with Nuxt for Llama Models
+# iLlama
 
 A web interface built with Nuxt for interacting with any OLlama language model locally.
 
