@@ -79,6 +79,11 @@ You can use any model supported by oLlama. Some popular options include:
 - mistral
 - llama2
 
+The following models were recently tested in a containerized environment and ran smoothly:
+- `deepseek-r1:1.5b`
+- `llama3.2:1b`
+- `qwen2.5:0.5b`
+
 The model name in your `.env` file must match exactly with the model name from oLlama's library.
 For example: `deepseek-r1:1.5b` not just `deepseek`.
 
