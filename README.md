@@ -89,6 +89,14 @@ For example: `deepseek-r1:1.5b` not just `deepseek`.
 
 Check [oLlama's model library](https://ollama.com/library) for more options.
 
+## View Installed Models
+
+To view installed model(s):
+
+```bash
+echo 'Installed models: ' && docker run --rm -v illama_ollama_data:/data alpine ls /data/models/manifests/registry.ollama.ai/library
+```
+
 ## Environment Variables
 
 - `NUXT_PUBLIC_LLAMA_MODEL`: Model name used by the frontend
