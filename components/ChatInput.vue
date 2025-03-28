@@ -12,15 +12,15 @@ const handleNewMessage = () => {
 </script>
 
 <template>
-  <div class="flex justify-between gap-4 max-h-32">
+  <div class="flex justify-between gap-4 max-h-54">
     <div class="w-full">
       <UTextarea class="w-full"
                  autoresize
                  autofocus
                  :rows="1"
-                 :maxrows="5"
+                 :maxrows="10"
                  color="primary"
-                 variant="outline"
+                 variant="subtle"
                  v-model="chatInput"
                  placeholder="🦙 Ask Llama anything..."
                  @keydown="(e) => {
@@ -36,8 +36,8 @@ const handleNewMessage = () => {
     <div class="mt-auto">
       <UButton icon="i-heroicons-paper-airplane"
                size="md"
-               color="primary"
-               variant="subtle"
+               color="secondary"
+               variant="solid"
                :disabled="!chatInput"
                @click="handleNewMessage" />
     </div>
