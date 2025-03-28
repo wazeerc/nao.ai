@@ -7,7 +7,7 @@ const model = config.public.llamaModel;
 
 <template>
   <aside class="inline-flex w-full mb-1 items-center justify-between">
-    <p class="p-1 text-slate-600 font-medium text-sm italic">Model: {{ model ?? '' }}</p>
+    <p class="p-1 text-slate-500 font-medium text-sm italic">Model: {{ model ?? '' }}</p>
     <UButton icon="i-heroicons-arrow-path"
              size="md"
              color="neutral"
