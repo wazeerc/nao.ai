@@ -1,4 +1,4 @@
-# iLlama
+# iLlama 🦙
 
 A web interface built with Nuxt for interacting with any OLlama language model locally.
 
@@ -9,6 +9,9 @@ A web interface built with Nuxt for interacting with any OLlama language model l
 - Node.js (for local development)
 - pnpm
 - oLlama (for local development)
+
+> [!NOTE]
+> If you're getting any compatibility issues with **Ollama**, please update the Docker Image in the _Docker Desktop app_ or by running `docker pull ollama:latest`
 
 ## Technologies & Dependencies
 
@@ -83,6 +86,7 @@ The following models were recently tested in a containerized environment and ran
 - `deepseek-r1:1.5b`
 - `llama3.2:1b`
 - `qwen2.5:0.5b`
+- `gemma3:1b`
 
 The model name in your `.env` file must match exactly with the model name from oLlama's library.
 For example: `deepseek-r1:1.5b` not just `deepseek`.
