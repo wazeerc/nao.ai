@@ -6,7 +6,8 @@ const model = config.public.llamaModel;
 </script>
 
 <template>
-  <aside class="inline-flex w-full mb-1 items-center justify-between">
+  <aside
+         class="inline-flex w-full mb-1 items-center justify-between motion-preset-slide-down motion-delay-500">
     <p class="p-1 text-slate-500 font-medium text-sm italic">Model: {{ model ?? '' }}</p>
     <UButton icon="i-heroicons-arrow-path"
              size="md"
@@ -16,8 +17,8 @@ const model = config.public.llamaModel;
              :disabled="!store.messages.length" />
   </aside>
   <main class="flex flex-col gap-4 p-6 bg-zinc-950 rounded-lg shadow-xl
-        border-2 border-zinc-800/40 h-[80vh] w-[80vw] relative">
-    <div class="flex w-full overflow-y-auto p-2">
+        border-2 border-zinc-800/40 h-[80vh] w-[80vw] relative motion-preset-slide-up">
+    <div class="flex w-full h-full overflow-y-auto p-2">
       <ChatWindow />
     </div>
     <div class="mt-auto">
