@@ -13,5 +13,6 @@
 }
 
 body {
-  @apply grid place-content-center h-screen bg-neutral-950;
+  @apply grid place-content-center h-screen;
+  background-color: oklch(0.145 0 0)
 }
