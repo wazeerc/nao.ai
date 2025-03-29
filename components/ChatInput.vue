@@ -12,7 +12,8 @@ const handleNewMessage = () => {
 </script>
 
 <template>
-  <div class="flex justify-between gap-4 max-h-54 motion-preset-slide-up motion-delay-500">
+  <div
+       class="flex justify-between items-center gap-4 max-h-54 motion-preset-slide-up-lg motion-delay-500">
     <div class="w-full">
       <UTextarea class="w-full"
                  autoresize
@@ -30,10 +31,10 @@ const handleNewMessage = () => {
                   }
                 }"
                  :ui="{
-                  base: 'resize-none bg-(--ui-bg-elevated)/50'
+                  base: 'resize-none bg-(--ui-bg-elevated)/50 border-1 border-slate-700'
                 }" />
     </div>
-    <div class="mt-auto">
+    <div class="flex items-center">
       <UButton icon="i-heroicons-paper-airplane"
                size="md"
                color="secondary"
