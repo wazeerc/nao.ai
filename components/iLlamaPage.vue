@@ -16,8 +16,8 @@ const model = config.public.llamaModel;
              @click="store.resetChat"
              :disabled="!store.messages.length" />
   </aside>
-  <main class="flex flex-col gap-4 p-6 bg-zinc-900/40 rounded-lg shadow-xl
-        border-4 border-zinc-900/40 h-[80vh] w-[80vw] relative motion-preset-slide-up">
+  <main class="flex flex-col gap-4 p-6 bg-zinc-900/80 rounded-lg shadow-xl
+        border-4 border-zinc-900/40 h-[80vh] w-[80vw] relative motion-preset-fade-sm">
     <div class="flex w-full h-full overflow-y-auto p-2">
       <ChatWindow />
     </div>
