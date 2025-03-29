@@ -17,7 +17,7 @@ watch(() => store.messages, () => {
          class="grid place-content-center h-full">
       <img src="/ollama.webp"
            alt="Ollama Logo"
-           class="w-60 opacity-5 motion-preset-focus-md motion-delay-300">
+           class="w-60 opacity-5 motion-preset-focus-lg motion-delay-500">
     </div>
 
     <template v-for="(message, index) in store.messages"

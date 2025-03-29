@@ -7,7 +7,7 @@ const model = config.public.llamaModel;
 
 <template>
   <aside
-         class="inline-flex w-full mb-1 items-center justify-between motion-preset-slide-down motion-delay-500">
+         class="inline-flex w-full mb-1 items-center justify-between motion-preset-slide-down motion-delay-700">
     <p class="p-1 text-slate-500 font-medium text-sm italic">Model: {{ model ?? '' }}</p>
     <UButton icon="i-heroicons-arrow-path"
              size="md"

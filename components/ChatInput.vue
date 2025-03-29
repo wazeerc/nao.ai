@@ -12,7 +12,7 @@ const handleNewMessage = () => {
 </script>
 
 <template>
-  <div class="flex justify-between gap-4 max-h-54">
+  <div class="flex justify-between gap-4 max-h-54 motion-preset-slide-up motion-delay-500">
     <div class="w-full">
       <UTextarea class="w-full"
                  autoresize
