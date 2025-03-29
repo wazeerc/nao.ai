@@ -23,7 +23,7 @@ const formattedMessage = computed(() => !props.isUser ? marked(props.message) : 
     <article v-else
              :class="cn(
               'text-zinc-200 shadow-xs rounded-xl px-4 py-2 max-w-full',
-              isUser ? 'bg-slate-800/80 motion-preset-slide-left' : 'bg-slate-800 motion-preset-slide-right prose prose-invert prose-sm',
+              isUser ? 'bg-zinc-800 motion-preset-slide-left' : 'bg-slate-800 motion-preset-slide-right prose prose-invert prose-sm',
               'prose-p:my-0 prose-ul:my-0 prose-li:my-0 prose-pre:my-0 prose-code:text-zinc-200'
             )"
              v-html="formattedMessage" />
