@@ -3,17 +3,19 @@ services:
     build:
       context: .
       dockerfile: dockerfile.ollama
-    container_name: ollama
+    image: "ollama"
+    container_name: ollama-service
     ports:
       - "11434:11434"
     volumes:
-      - ollama_data:/root/.ollama
+      - data:/root/.ollama
     environment:
       - LLAMA_MODEL=${LLAMA_MODEL}
 
-  nuxt-app:
+  myllama:
     build: .
-    container_name: nuxt-app
+    image: "myllama"
+    container_name: myllama-ui
     env_file:
       - .env
     ports:
@@ -23,6 +25,7 @@ services:
     environment:
       - OLLAMA_API_URL=http://ollama:11434/
       - NUXT_PUBLIC_LLAMA_MODEL=${LLAMA_MODEL}
+      - COMPOSE_PROJECT_NAME=${COMPOSE_PROJECT_NAME}
 
 volumes:
-  ollama_data:
+  data:

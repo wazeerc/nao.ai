@@ -1,3 +1,3 @@
 <template>
-  <ILlamaPage />
+  <MyLlamaPage />
 </template>

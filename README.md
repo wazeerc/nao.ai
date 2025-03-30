@@ -1,8 +1,8 @@
-# iLlama 🦙
+# MyLlama 🦙
 
 A web interface built with Nuxt for interacting with any OLlama language model locally.
 
-![illama-demo](https://github.com/user-attachments/assets/922b3ee3-8623-432a-b29f-5f4e1bd8b434)
+![myllama-demo](https://github.com/user-attachments/assets/922b3ee3-8623-432a-b29f-5f4e1bd8b434)
 
 ## Prerequisites
 
@@ -44,7 +44,7 @@ Note: Both environment variables should typically use the same model name.
 1. Clone the repository:
 ```bash
 git clone <repository-url>
-cd iLlama
+cd MyLlama
 ```
 
 2. Start the application using Docker Compose:
@@ -100,13 +100,14 @@ Check [oLlama's model library](https://ollama.com/library) for more options.
 To view installed model(s):
 
 ```bash
-echo 'Installed models: ' && docker run --rm -v illama_ollama_data:/data alpine ls /data/models/manifests/registry.ollama.ai/library
+echo 'Installed models: ' && docker run --rm -v myllama_data:/data alpine ls /data/models/manifests/registry.ollama.ai/library
 ```
 
 ## Environment Variables
 
 - `NUXT_PUBLIC_LLAMA_MODEL`: Model name used by the frontend
 - `LLAMA_MODEL`: Model name for Docker container to pull
+- `COMPOSE_PROJECT_NAME`: The project name
 
 Both variables should typically match and use the exact model name from oLlama's library.
 
