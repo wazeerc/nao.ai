@@ -2,7 +2,7 @@
 
 A web interface built with Nuxt for interacting with any OLlama language model locally.
 
-![illama-demo](https://github.com/user-attachments/assets/7f2efde5-14da-4e9c-b740-a80e10823134)
+![illama-demo](https://github.com/user-attachments/assets/922b3ee3-8623-432a-b29f-5f4e1bd8b434)
 
 ## Prerequisites
 
