@@ -23,7 +23,7 @@ const handleNewMessage = () => {
                  color="primary"
                  variant="subtle"
                  v-model="chatInput"
-                 placeholder="🦙 Ask Llama anything..."
+                 placeholder="✨ Curious minds ask..."
                  @keydown="(e) => {
                   if (e.key === 'Enter' && !e.shiftKey) {
                     e.preventDefault();

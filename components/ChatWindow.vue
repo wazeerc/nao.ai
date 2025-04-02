@@ -15,9 +15,13 @@ watch(() => store.messages, () => {
            class="flex flex-col gap-4 w-full overflow-y-auto pb-4 rounded">
     <div v-if="!store.messages.length"
          class="grid place-content-center h-full">
-      <img src="/ollama.webp"
-           alt="Ollama Logo"
-           class="w-60 opacity-5 motion-preset-focus-lg motion-delay-500">
+      <div class="flex flex-col items-center text-center">
+        <img src="/ollama.webp"
+             alt="Ollama Logo"
+             class="w-60 opacity-10 mb-2 motion-preset-focus-lg motion-delay-300">
+        <p class="font-semibold text-slate-500 mt-2 motion-preset-slide-up-md motion-delay-500">
+          MyLlama, Open-Source AI at your fingertips.</p>
+      </div>
     </div>
 
     <template v-for="(message, index) in store.messages"
