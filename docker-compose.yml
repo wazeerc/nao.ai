@@ -12,10 +12,10 @@ services:
     environment:
       - LLAMA_MODEL=${LLAMA_MODEL}
 
-  myllama:
+  nao-ai:
     build: .
-    image: "myllama"
-    container_name: myllama-ui
+    image: "nao-ai"
+    container_name: nao-ai-ui
     env_file:
       - .env
     ports:

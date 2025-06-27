@@ -1,8 +1,9 @@
-# MyLlama 🦙
+# nao.ai 🦙🧠
+(脑; pronounced /now•dot•ai/) means "brain" in Mandarin.
 
 A web interface built with Nuxt for interacting with any OLlama language model locally.
 
-![myllama-demo](https://github.com/user-attachments/assets/43c6f5e6-a1a6-4005-a413-602ce0eb4379)
+![nao.ai-demo](https://github.com/user-attachments/assets/43c6f5e6-a1a6-4005-a413-602ce0eb4379)
 
 ## Prerequisites
 
@@ -13,7 +14,8 @@ A web interface built with Nuxt for interacting with any OLlama language model l
 - oLlama (for local development)
 
 > [!NOTE]
-> If you're getting any compatibility issues with **Ollama**, please update the Docker Image in the _Docker Desktop app_ or by running `docker pull ollama:latest`
+> If you're having any compatibility issues with **Ollama**, please update the Docker Image in the _Docker Desktop app_ or by running `docker pull ollama:latest`
+> If you're having issues with the app, please delete the directory and clone the repository again.
 
 ## Technologies & Dependencies
 
@@ -43,8 +45,9 @@ Note: Both environment variables should typically use the same model name.
 
 1. Clone the repository:
 ```bash
-git clone <repository-url>
-cd MyLlama
+git clone https://github.com/wazeerc/nao.ai.git
+```
+cd nao.ai
 ```
 
 2. Start the application using Docker Compose:
@@ -100,7 +103,7 @@ Check [oLlama's model library](https://ollama.com/library) for more options.
 To view installed model(s):
 
 ```bash
-echo 'Installed models: ' && docker run --rm -v myllama_data:/data alpine ls /data/models/manifests/registry.ollama.ai/library
+echo 'Installed models: ' && docker run --rm -v nao-ai_data:/data alpine ls /data/models/manifests/registry.ollama.ai/library
 ```
 
 ## Environment Variables

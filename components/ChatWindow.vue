@@ -20,7 +20,7 @@ watch(() => store.messages, () => {
              alt="Ollama Logo"
              class="w-60 opacity-10 mb-2 motion-preset-focus-lg motion-delay-300">
         <p class="font-semibold text-slate-500 mt-2 motion-preset-slide-up-md motion-delay-500">
-          MyLlama, Open-Source AI at your fingertips.</p>
+          nao.ai, Open-Source AI at your fingertips.</p>
       </div>
     </div>
 
