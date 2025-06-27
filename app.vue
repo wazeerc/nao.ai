@@ -1,3 +1,4 @@
 <template>
+  <ThemeToggle />
   <NaoaiPage />
 </template>

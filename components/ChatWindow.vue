@@ -1,5 +1,6 @@
 <script setup>
 const store = useChatStore();
+const themeStore = useThemeStore();
 const chatContainer = ref(null);
 
 watch(() => store.messages, () => {
@@ -19,8 +20,10 @@ watch(() => store.messages, () => {
         <img src="/ollama.webp"
              alt="Ollama Logo"
              class="w-60 opacity-10 mb-2 motion-preset-focus-lg motion-delay-300">
-        <p class="font-semibold text-slate-500 mt-2 motion-preset-slide-up-md motion-delay-500">
-          nao.ai, Open-Source AI at your fingertips.</p>
+        <p class="font-semibold mt-2 motion-preset-slide-up-md motion-delay-500 transition-colors duration-300"
+           :class="themeStore.isDark ? 'text-slate-400' : 'text-slate-500'">
+          nao.ai, Open-Source AI at your fingertips.
+        </p>
       </div>
     </div>
 

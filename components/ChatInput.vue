@@ -2,6 +2,7 @@
 import { ref } from 'vue';
 
 const store = useChatStore();
+const themeStore = useThemeStore();
 const chatInput = ref('');
 
 const handleNewMessage = () => {
@@ -31,7 +32,11 @@ const handleNewMessage = () => {
                   }
                 }"
                  :ui="{
-                  base: 'resize-none bg-(--ui-bg-elevated)/50 border-1 border-slate-700'
+                  base: `resize-none border-1 transition-colors duration-300 ${
+                    themeStore.isDark
+                      ? 'bg-(--ui-color-neutral-800)/50 border-slate-700'
+                      : 'bg-(--ui-color-neutral-100)/50 border-slate-300'
+                  }`
                 }" />
     </div>
     <div class="flex items-center">
