@@ -1,4 +1,6 @@
 <template>
-  <ThemeToggle />
+  <ClientOnly>
+    <ThemeToggle />
+  </ClientOnly>
   <NaoaiPage />
 </template>

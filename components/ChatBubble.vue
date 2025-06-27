@@ -25,7 +25,7 @@ const copyToClipboard = async () => {
              class="flex items-center gap-2 shadow-xs rounded-xl px-4 py-2 motion-preset-blur-right motion-delay-200 transition-all duration-300 bg-slate-300 dark:bg-slate-800">
       <div class="w-2 h-2 bg-emerald-500 rounded-full animate-pulse" />
       <span class="text-sm transition-all duration-300 text-slate-700 dark:text-zinc-300">
-        🦙 Llama is thinking...
+        🧠 nao.ai is thinking...
       </span>
     </article>
 
