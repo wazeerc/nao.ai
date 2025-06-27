@@ -1,6 +1,5 @@
 <script setup>
 const store = useChatStore();
-const themeStore = useThemeStore();
 const chatContainer = ref(null);
 
 watch(() => store.messages, () => {
@@ -19,10 +18,8 @@ watch(() => store.messages, () => {
       <div class="flex flex-col items-center text-center">
         <img src="/naoai-logo-mono.svg"
              alt="naoai Logo"
-             class="w-40 mb-6 motion-preset-focus-lg motion-delay-300"
-             :class="themeStore.isDark ? 'invert opacity-80' : 'opacity-20'">
-        <p class="font-semibold mt-2 motion-preset-slide-up-md motion-delay-500 transition-colors duration-300"
-           :class="themeStore.isDark ? 'text-slate-500' : 'text-slate-600'">
+             class="w-40 mb-6 motion-preset-focus-lg motion-delay-300 opacity-20 dark:invert dark:opacity-80 transition-all duration-300">
+        <p class="font-semibold mt-2 motion-preset-slide-up-md motion-delay-500 transition-all duration-300 text-slate-600 dark:text-slate-500">
           nao.ai, Open-Source AI at your fingertips.
         </p>
       </div>
