@@ -18,7 +18,7 @@ watch(() => store.messages, () => {
          class="grid place-content-center h-full">
       <div class="flex flex-col items-center text-center">
         <img src="/naoai-logo-mono.svg"
-             alt="Ollama Logo"
+             alt="naoai Logo"
              class="w-40 mb-6 motion-preset-focus-lg motion-delay-300"
              :class="themeStore.isDark ? 'invert opacity-80' : 'opacity-20'">
         <p class="font-semibold mt-2 motion-preset-slide-up-md motion-delay-500 transition-colors duration-300"
