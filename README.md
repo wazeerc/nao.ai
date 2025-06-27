@@ -1,4 +1,4 @@
-# nao.ai 🦙🧠
+# nao.ai 🧠
 (脑; pronounced /now•dot•ai/) means "brain" in Mandarin.
 
 A web interface built with Nuxt for interacting with any OLlama language model locally.

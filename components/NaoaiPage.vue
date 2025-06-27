@@ -16,7 +16,9 @@ const model = config.public.llamaModel;
                color="neutral"
                variant="ghost"
                @click="store.resetChat"
-               :disabled="!store.messages.length" />
+               :disabled="!store.messages.length"
+               :aria-label="store.messages.length ? 'Reset chat conversation' : 'No messages to reset'"
+               :title="store.messages.length ? 'Reset chat' : 'No messages to reset'" />
     </aside>
 
     <main class="flex flex-col gap-4 p-6 rounded-lg shadow-lg border-4 h-[80vh] w-[80vw] relative motion-preset-fade-sm transition-all duration-400 ease-in bg-slate-100/20 border-slate-200/50 dark:bg-zinc-900/80 dark:border-gray-900/40">
