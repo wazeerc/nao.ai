@@ -11,7 +11,6 @@ export default defineNuxtConfig({
       ],
       link: [
         { rel: 'icon', type: 'image/svg+xml', href: '/naoai-logo.svg' },
-        { rel: 'alternate icon', type: 'image/x-icon', href: '/favicon.ico' },
         { rel: 'apple-touch-icon', sizes: '180x180', href: '/naoai-logo.svg' },
         { rel: 'icon', type: 'image/svg+xml', sizes: '32x32', href: '/naoai-logo.svg' },
         { rel: 'icon', type: 'image/svg+xml', sizes: '16x16', href: '/naoai-logo.svg' }
@@ -27,7 +26,8 @@ export default defineNuxtConfig({
   devtools: { enabled: false },
   modules: [
     '@nuxt/ui',
-    '@pinia/nuxt'
+    '@pinia/nuxt',
+    '@nuxtjs/color-mode'
   ],
   ssr: false,
   vite: {
@@ -39,5 +39,10 @@ export default defineNuxtConfig({
     public: {
       llamaModel: process.env.NUXT_PUBLIC_LLAMA_MODEL
     }
-  }
+  },
+  colorMode: {
+    preference: 'dark',
+    fallback: 'dark',
+    classSuffix: '',
+  },
 });

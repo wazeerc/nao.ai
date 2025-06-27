@@ -1,15 +1,15 @@
 <script setup>
-const themeStore = useThemeStore();
+const colorMode = useColorMode();
 </script>
 
 <template>
   <div class="absolute top-2 right-2 hover:motion-preset-seesaw">
     <UButton
-      :icon="themeStore.isDark ? 'i-heroicons-sun' : 'i-heroicons-moon'"
+      :icon="colorMode.value === 'dark' ? 'i-heroicons-sun' : 'i-heroicons-moon'"
       size="lg"
       color="neutral"
       variant="ghost"
-      @click="themeStore.toggleTheme"
+      @click="colorMode.preference = colorMode.value === 'dark' ? 'light' : 'dark'"
       class="motion-preset-slide-left motion-delay-800"
       :ui="{
         base: 'transition-all duration-300'
