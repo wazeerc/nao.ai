@@ -17,11 +17,12 @@ watch(() => store.messages, () => {
     <div v-if="!store.messages.length"
          class="grid place-content-center h-full">
       <div class="flex flex-col items-center text-center">
-        <img src="/ollama.webp"
+        <img src="/naoai-logo-mono.svg"
              alt="Ollama Logo"
-             class="w-60 opacity-10 mb-2 motion-preset-focus-lg motion-delay-300">
+             class="w-40 mb-6 motion-preset-focus-lg motion-delay-300"
+             :class="themeStore.isDark ? 'invert opacity-80' : 'opacity-20'">
         <p class="font-semibold mt-2 motion-preset-slide-up-md motion-delay-500 transition-colors duration-300"
-           :class="themeStore.isDark ? 'text-slate-400' : 'text-slate-500'">
+           :class="themeStore.isDark ? 'text-slate-500' : 'text-slate-600'">
           nao.ai, Open-Source AI at your fingertips.
         </p>
       </div>

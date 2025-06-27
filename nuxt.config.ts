@@ -9,6 +9,13 @@ export default defineNuxtConfig({
       meta: [
         { name: 'description', content: 'A web interface for interacting with local language models.' }
       ],
+      link: [
+        { rel: 'icon', type: 'image/svg+xml', href: '/naoai-logo.svg' },
+        { rel: 'alternate icon', type: 'image/x-icon', href: '/favicon.ico' },
+        { rel: 'apple-touch-icon', sizes: '180x180', href: '/naoai-logo.svg' },
+        { rel: 'icon', type: 'image/svg+xml', sizes: '32x32', href: '/naoai-logo.svg' },
+        { rel: 'icon', type: 'image/svg+xml', sizes: '16x16', href: '/naoai-logo.svg' }
+      ]
     }
   },
   alias: {
