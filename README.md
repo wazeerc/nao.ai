@@ -3,7 +3,7 @@
 
 A web interface built with Nuxt for interacting with any OLlama language model locally.
 
-![nao.ai-demo](https://github.com/user-attachments/assets/43c6f5e6-a1a6-4005-a413-602ce0eb4379)
+![nao-ai-demo](https://github.com/user-attachments/assets/d73be367-53d6-46a8-bc5c-f23d8d9cc687)
 
 ## Prerequisites
 
@@ -45,9 +45,7 @@ Note: Both environment variables should typically use the same model name.
 
 1. Clone the repository:
 ```bash
-git clone https://github.com/wazeerc/nao.ai.git
-```
-cd nao.ai
+git clone https://github.com/wazeerc/nao.ai.git && cd nao.ai
 ```
 
 2. Start the application using Docker Compose:
