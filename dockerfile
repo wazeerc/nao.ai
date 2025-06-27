@@ -18,7 +18,7 @@ WORKDIR /app
 COPY --from=builder /app/package.json /app/pnpm-lock.yaml ./
 COPY --from=builder /app/.output ./.output
 
-RUN npm install -g pnpm && pnpm install --prod
+RUN npm install -g pnpm && pnpm install --frozen-lockfile --prod
 
 EXPOSE 3000
 

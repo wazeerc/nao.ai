@@ -1,4 +1,3 @@
-import tailwindcss from "@tailwindcss/vite";
 import { resolve } from 'path';
 
 // https://nuxt.com/docs/api/configuration/nuxt-config
@@ -31,9 +30,7 @@ export default defineNuxtConfig({
   ],
   ssr: false,
   vite: {
-    plugins: [
-      tailwindcss(),
-    ]
+    plugins: []
   },
   runtimeConfig: {
     public: {

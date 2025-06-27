@@ -10,6 +10,9 @@
     "preview": "nuxt preview",
     "postinstall": "nuxt prepare"
   },
+  "engines": {
+    "node": ">=18"
+  },
   "dependencies": {
     "@nuxt/ui": "3.0.2",
     "@nuxtjs/color-mode": "^3.5.2",
