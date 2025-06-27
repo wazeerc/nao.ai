@@ -3,6 +3,14 @@ import { resolve } from 'path';
 
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
+  app: {
+    head: {
+      title: 'nao.ai - Your Local AI Assistant',
+      meta: [
+        { name: 'description', content: 'A web interface for interacting with local language models.' }
+      ],
+    }
+  },
   alias: {
     "@": resolve(__dirname, "./"),
     "@utils": resolve(__dirname, "./utils/index.ts"),

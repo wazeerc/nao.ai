@@ -1,3 +1,3 @@
 <template>
-  <MyLlamaPage />
+  <NaoaiPage />
 </template>
