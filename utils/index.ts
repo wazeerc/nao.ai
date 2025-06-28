@@ -6,11 +6,11 @@ export function cn(...inputs: ClassValue[]): string {
 }
 
 
-type llamaResponse = {
+type LlamaResponse = {
   thoughts: string | undefined;
   response: string;
 }
-export async function fetchLlamaResponse(input: string): Promise<llamaResponse> {
+export async function fetchLlamaResponse(input: string): Promise<LlamaResponse> {
   try {
     const config = useRuntimeConfig();
     const model = config.public.llamaModel;
@@ -49,13 +49,13 @@ export async function fetchLlamaResponse(input: string): Promise<llamaResponse> 
       return {
         thoughts: thoughts[1].trim(),
         response: cleanResponse
-      } as llamaResponse;
+      } as LlamaResponse;
     }
 
     return {
       thoughts: undefined,
       response: cleanResponse
-    } as llamaResponse;
+    } as LlamaResponse;
   } catch (error) {
     console.error('Error fetching Llama response:', error);
     throw new Error('Failed to get response from Llama API: ' + (error instanceof Error ? error.message : 'Unknown error'));
