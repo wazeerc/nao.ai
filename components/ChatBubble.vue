@@ -38,6 +38,8 @@ const toggleThought = () => isThoughtExpanded.value = !isThoughtExpanded.value;
             class="flex items-center gap-2 mb-2 -my-1
                   motion-preset-slide-up motion-delay-300">
         <button @click="toggleThought"
+                :aria-expanded="isThoughtExpanded"
+                aria-label="Toggle AI reasoning thoughts"
                 class="flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400 hover:text-slate-800 dark:hover:text-slate-200 transition-colors duration-200 cursor-pointer">
           <svg class="w-4 h-4 transition-transform duration-200 text-blue-400/80"
                :class="{ 'rotate-90': isThoughtExpanded }"
