@@ -33,8 +33,8 @@ const copyToClipboard = async () => {
       <article :class="cn(
         'shadow-xs rounded-xl px-4 py-2 max-w-full transition-all duration-300',
         isUser
-          ? 'bg-blue-100 dark:bg-zinc-800 text-slate-800 dark:text-zinc-200 motion-preset-slide-left'
-          : 'bg-slate-300 dark:bg-slate-800 text-slate-800 dark:text-zinc-200 motion-preset-slide-right prose prose-slate dark:prose-invert prose-sm',
+          ? 'bg-slate-300 dark:bg-zinc-800 text-slate-800 dark:text-zinc-200 motion-preset-slide-left'
+          : 'bg-blue-200/75 dark:bg-slate-800 text-slate-800 dark:text-zinc-200 motion-preset-slide-right prose prose-slate dark:prose-invert prose-sm',
         'prose-p:my-0 prose-ul:my-0 prose-li:my-0 prose-pre:my-0',
         'prose-code:text-slate-700 dark:prose-code:text-zinc-200'
       )"
