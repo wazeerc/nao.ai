@@ -9,6 +9,7 @@
 ## ✨ Features
 
 - 💬 **Chat with any Model**: Seamlessly interact with any language model supported by [oLlama](https://ollama.com/search).
+- 🧠 **Reasoning Insights**: View the internal thought process of thinking/reasoning models.
 - 🔒 **Privacy-Focused**: All processing is done locally. Your data never leaves your machine.
 - 🪄 **Easy Docker Setup**: Get up and running with a single command using Docker Compose.
 

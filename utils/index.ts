@@ -5,7 +5,12 @@ export function cn(...inputs: ClassValue[]): string {
   return twMerge(clsx(inputs));
 }
 
-export async function fetchLlamaResponse(input: string): Promise<string> {
+
+type llamaResponse = {
+  thoughts: string | undefined;
+  response: string;
+}
+export async function fetchLlamaResponse(input: string): Promise<llamaResponse> {
   try {
     const config = useRuntimeConfig();
     const model = config.public.llamaModel;
@@ -36,7 +41,21 @@ export async function fetchLlamaResponse(input: string): Promise<string> {
       throw new Error('Invalid response format from API');
     }
 
-    return data.response;
+    let cleanResponse = data.response.replace(/\\u003c/g, '<').replace(/\\u003e/g, '>');
+    const thoughts = cleanResponse.match(/<think>([\s\S]*?)<\/think>/);
+    if (thoughts) {
+      cleanResponse = cleanResponse.replace(/<think>[\s\S]*?<\/think>/g, '').trim();
+
+      return {
+        thoughts: thoughts[1].trim(),
+        response: cleanResponse
+      } as llamaResponse;
+    }
+
+    return {
+      thoughts: undefined,
+      response: cleanResponse
+    } as llamaResponse;
   } catch (error) {
     console.error('Error fetching Llama response:', error);
     throw new Error('Failed to get response from Llama API: ' + (error instanceof Error ? error.message : 'Unknown error'));

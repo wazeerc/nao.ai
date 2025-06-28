@@ -18,6 +18,7 @@ body {
   height: 100vh;
   transition: background .8s ease-in-out;
   overflow: hidden;
+  scroll-behavior: smooth;
 }
 
 html.dark body {
