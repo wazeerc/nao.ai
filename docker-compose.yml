@@ -18,7 +18,7 @@ services:
     image: "nao-ai"
     container_name: nao-ai-ui
     env_file:
-      - .env.docker
+      - .env
     ports:
       - "3000:3000"
     depends_on:
