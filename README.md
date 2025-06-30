@@ -133,3 +133,6 @@ echo 'Installed models: ' && docker run --rm -v nao-ai_data:/data alpine ls /dat
 - `LLAMA_MODEL`: Model name for the Docker container to pull.
 - `COMPOSE_PROJECT_NAME`: The project name for Docker Compose.
 
+---
+
+Made with ❤️, [Ollama](https://github.com/ollama) & [LangChain](https://github.com/langchain-ai)
