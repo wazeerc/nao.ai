@@ -1,0 +1,134 @@
+import { RecursiveCharacterTextSplitter } from 'langchain/text_splitter';
+import { RAG } from '../utils/rag';
+
+export const useRagStore = defineStore('rag', () => {
+  const documents = ref<File[]>([]);
+  const ragInstance = ref<RAG | null>(null);
+  const isProcessing = ref(false);
+  const processedDocuments = ref<string[]>([]);
+
+  function initializeRAG() {
+    if (!ragInstance.value) ragInstance.value = new RAG();
+  }
+
+  function addDocument(newDocument: File) {
+    documents.value.push(newDocument);
+  }
+
+  async function processDocuments(docs: File[]) {
+    if (!docs.length) return;
+
+    initializeRAG();
+    isProcessing.value = true;
+
+    try {
+      for (const doc of docs) {
+        const chunks = await extractAndSplitTextFromFile(doc);
+        if (chunks.length && ragInstance.value) {
+          for (const chunk of chunks) {
+            await ragInstance.value.storeMemory(chunk);
+          }
+          processedDocuments.value.push(doc.name);
+        }
+      }
+    } catch (error) {
+      console.error('Error processing documents:', error);
+      throw error;
+    } finally {
+      isProcessing.value = false;
+    }
+  }
+
+  async function extractAndSplitTextFromFile(file: File): Promise<string[]> {
+    let textContent = '';
+
+    if (file.type === 'text/plain') {
+      textContent = await file.text();
+    } else if (file.type === 'application/pdf') {
+      const chunks = await processPDFWithLangChain(file);
+      return chunks;
+    } else {
+      throw new Error(`Unsupported file type: ${file.type}`);
+    }
+
+    if (textContent) {
+      const textSplitter = new RecursiveCharacterTextSplitter({
+        chunkSize: 1000,
+        chunkOverlap: 200,
+      });
+      return await textSplitter.splitText(textContent);
+    }
+
+    return [];
+  }
+
+  async function processPDFWithLangChain(file: File): Promise<string[]> {
+    try {
+      const blob = new Blob([file], { type: 'application/pdf' });
+
+      const pdfjsModule = await import('pdfjs-dist');
+      pdfjsModule.GlobalWorkerOptions.workerSrc = new URL(
+        'pdfjs-dist/build/pdf.worker.min.mjs',
+        import.meta.url
+      ).toString();
+
+      const { WebPDFLoader } = await import('@langchain/community/document_loaders/web/pdf');
+      const loader = new WebPDFLoader(blob, {
+        splitPages: true,
+        parsedItemSeparator: ' ',
+        pdfjs: () => Promise.resolve(pdfjsModule)
+      });
+
+      const docs = await loader.load();
+
+      const textSplitter = new RecursiveCharacterTextSplitter({
+        chunkSize: 1000,
+        chunkOverlap: 200,
+      });
+
+      const chunks: string[] = [];
+      for (const doc of docs) {
+        const docChunks = await textSplitter.splitText(doc.pageContent);
+        chunks.push(...docChunks);
+      }
+
+      return chunks;
+    } catch (error) {
+      console.error('Error processing PDF with LangChain:', error);
+      throw new Error(`Failed to process PDF: ${error instanceof Error ? error.message : 'Unknown error'}`);
+    }
+  }
+
+  async function extractTextFromFile(file: File): Promise<string> {
+    if (file.type === 'text/plain') {
+      return await file.text();
+    } else if (file.type === 'application/pdf') {
+      const chunks = await processPDFWithLangChain(file);
+      return chunks.join('\n\n');
+    }
+    throw new Error(`Unsupported file type: ${file.type}`);
+  }
+
+  async function queryRAG(query: string): Promise<any> {
+    if (!ragInstance.value) throw new Error('RAG not initialized. Please upload documents first.');
+    return await ragInstance.value.getRelevantMemory(query);
+  }
+
+  function resetDocuments() {
+    documents.value = [];
+    processedDocuments.value = [];
+    ragInstance.value = null;
+  }
+
+  return {
+    documents,
+    ragInstance,
+    isProcessing,
+    processedDocuments,
+    addDocument,
+    processDocuments,
+    queryRAG,
+    resetDocuments,
+    extractTextFromFile
+  }
+});
