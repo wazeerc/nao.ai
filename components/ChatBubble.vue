@@ -73,13 +73,13 @@ const toggleThought = () => isThoughtExpanded.value = !isThoughtExpanded.value;
       )"
                v-html="formattedMessage" />
 
-      <UButton v-if="!isUser && !isThought && message.length > 0"
+      <UButton v-if="!isUser && !isThought && message.length > 1000"
                :icon="hasBeenCopied ? 'i-heroicons-check' : 'i-heroicons-clipboard'"
                class="justify-end w-fit ml-auto"
                :class="cn('mt-1 cursor-pointer motion-preset-pop motion-delay-200',
                 'group-hover:motion-preset-seesaw-lg')"
                size="xs"
-               color="neutral"
+               :color="hasBeenCopied ? 'primary' : 'neutral'"
                variant="ghost"
                :aria-label="hasBeenCopied ? 'Copied!' : 'Copy message to clipboard'"
                :disabled="hasBeenCopied"
