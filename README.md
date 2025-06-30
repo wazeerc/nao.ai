@@ -8,7 +8,7 @@
 
 ## ✨ Features
 
-- 💬 **Chat with any Model**: Seamlessly interact with any language model supported by [oLlama](https://ollama.com/search).
+- 💬 **Chat with any Model**: Seamlessly interact with any language model supported by [Ollama](https://ollama.com/search).
 - 🧠 **Reasoning Insights**: View the internal thought process of thinking/reasoning models.
 - 🔒 **Privacy-Focused**: All processing is done locally. Your data never leaves your machine.
 - 🪄 **Easy Docker Setup**: Get up and running with a single command using Docker Compose.
@@ -45,7 +45,7 @@ LLAMA_MODEL="$NUXT_PUBLIC_LLAMA_MODEL"
 ```
 
 > [!NOTE]
-> The model will be automatically downloaded the first time you start the application. You can find more models on the [oLLama Library](https://ollama.com/library).
+> The model will be automatically downloaded the first time you start the application. You can find more models on the [Ollama Library](https://ollama.com/library).
 
 ### 3. Run the Application
 
@@ -71,7 +71,7 @@ For those who prefer to run the application without Docker.
 
 - [Node.js](https://nodejs.org/en/download)
 - [pnpm](https://pnpm.io/installation)
-- [oLlama](https://ollama.com) installed locally
+- [Ollama](https://ollama.com) installed locally
 
 ### 1. Install Dependencies
 
@@ -83,9 +83,9 @@ pnpm install
 
 Follow step 2 from the "Getting Started with Docker" section to create and configure your `.env` file.
 
-### 3. Run oLlama
+### 3. Run Ollama
 
-Pull and run your desired model with oLlama.
+Pull and run your desired model with Ollama.
 
 ```bash
 ollama run deepseek-coder-v2:16b # Replace with the model from your .env file
@@ -111,7 +111,7 @@ The development server will be available at `http://localhost:3000`.
 
 ### Available Models
 
-You can use any model supported by oLlama. The model name in your `.env` file must match exactly with the model name from oLlama's library.
+You can use any model supported by Ollama. The model name in your `.env` file must match exactly with the model name from Ollama's library.
 
 Some recently tested models:
 - `deepseek-r1:1.5b`
