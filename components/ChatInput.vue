@@ -1,17 +1,62 @@
 <script setup>
 import { ref } from 'vue';
 
-const store = useChatStore();
+const chatStore = useChatStore();
 const chatInput = ref('');
 
 const handleNewMessage = () => {
   if (!chatInput.value.trim()) return;
-  store.sendMessage(chatInput.value);
+  chatStore.sendMessage(chatInput.value);
   chatInput.value = '';
+};
+
+const ragStore = useRagStore();
+const document = ref(null);
+const documentName = ref(null)
+const isDocumentError = ref(false)
+
+watch(() => ragStore.documents.length, (newLength) => {
+  if (newLength === 0) {
+    documentName.value = '';
+    isDocumentError.value = false;
+  }
+});
+
+const handleDocumentUpload = () => document.value?.click();
+
+const handleFileChange = async (event) => {
+  const file = event.target.files[0];
+  if (!file) return;
+
+  try {
+    if(file.type === 'application/pdf' || file.type === 'text/plain'){
+      ragStore.addDocument(file);
+      documentName.value = file.name;
+      isDocumentError.value = false;
+
+      await ragStore.processDocuments([file]);
+    }
+    else{
+      isDocumentError.value = true;
+      throw new Error(`'${file.type}' is not supported yet.`);
+    }
+
+    event.target.value = '';
+  } catch (error) {
+    console.error('Error reading file:', error);
+    isDocumentError.value = true;
+  }
 };
 </script>
 
 <template>
+  <div v-show="documentName && !isDocumentError" class="bg-slate-200/75 dark:bg-slate-800/50 mb-2 p-1 rounded-lg shadow-xs w-fit">
+    <div class="flex items-center gap-2">
+      <p class="px-1 text-slate-600 dark:text-slate-400 truncate max-w-80 text-sm">{{ documentName }}</p>
+      <div v-if="ragStore.isProcessing" class="animate-spin h-4 w-4 border-2 border-blue-500 border-t-transparent rounded-full"></div>
+      <div v-else-if="ragStore.processedDocuments.includes(documentName)" class="text-green-500 text-sm pr-1">📑</div>
+    </div>
+  </div>
   <div
        class="flex justify-between items-center gap-4 max-h-54 motion-preset-slide-up-lg motion-delay-500">
     <div class="w-full">
@@ -31,15 +76,31 @@ const handleNewMessage = () => {
                   }
                 }"
                  :ui="{
-                  base: 'resize-none border-1 transition-all duration-300 bg-(--ui-color-neutral-100)/50 dark:bg-(--ui-color-neutral-800)/50 border-slate-300 dark:border-slate-700'
+                  base: 'resize-none transition-all duration-300 bg-(--ui-color-neutral-100)/50 dark:bg-(--ui-color-neutral-800)/50 border-slate-300 dark:border-slate-700'
                 }" />
     </div>
-    <div class="flex items-center">
+    <div class="flex items-center gap-2">
+      <input ref="document"
+             type="file"
+             accept=".txt,.pdf"
+             @change="handleFileChange"
+             class="hidden" />
+
+      <UButton icon="i-heroicons-paper-clip"
+               class="cursor-pointer"
+               size="md"
+               :color="isDocumentError ? 'error' : 'neutral'"
+               variant="subtle"
+               title="Upload .txt or .pdf file"
+               :disabled="ragStore.isProcessing"
+               @click="handleDocumentUpload" />
+
       <UButton icon="i-heroicons-paper-airplane"
+               class="cursor-pointer"
                size="md"
                color="secondary"
                variant="solid"
-               :disabled="!chatInput"
+               :disabled="!chatInput || ragStore.isProcessing"
                @click="handleNewMessage" />
     </div>
   </div>

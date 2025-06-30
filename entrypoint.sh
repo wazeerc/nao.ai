@@ -10,8 +10,10 @@ while ! ollama list > /dev/null 2>&1; do
 done
 
 # Pull the required model using the environment variable
-echo "Pulling ${LLAMA_MODEL} model..."
-ollama pull ${LLAMA_MODEL}
+echo "Pulling ${NUXT_PUBLIC_OLLAMA_MODEL} model..."
+ollama pull ${NUXT_PUBLIC_OLLAMA_MODEL}
+echo "Pulling ${NUXT_PUBLIC_EMBEDDING_MODEL} model..."
+ollama pull ${NUXT_PUBLIC_EMBEDDING_MODEL}
 
 # Kill the background Ollama process
 pkill ollama

@@ -10,7 +10,7 @@ const colorMode = useColorMode();
       color="neutral"
       variant="ghost"
       @click="colorMode.preference = colorMode.value === 'dark' ? 'light' : 'dark'"
-      class="motion-preset-slide-left motion-delay-800"
+      class="motion-preset-slide-left motion-delay-800 cursor-pointer"
       :ui="{
         base: 'transition-all duration-300'
       }"
