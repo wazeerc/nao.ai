@@ -16,17 +16,26 @@ export const useRagStore = defineStore('rag', () => {
   }
 
   async function processDocuments(docs: File[]) {
-    if (!docs.length) return;
+    if (!docs.length || isProcessing.value) return;
 
     initializeRAG();
     isProcessing.value = true;
 
+    const MAX_FILE_SIZE_MB = 15;
+    const BATCH_SIZE = 100;
     try {
       for (const doc of docs) {
+        const fileSizeInMB = doc.size / (1024 * 1024);
+        if (fileSizeInMB > MAX_FILE_SIZE_MB) {
+          alert(`File "${doc.name}" (${fileSizeInMB.toFixed(2)} MB) exceeds the ${MAX_FILE_SIZE_MB} MB limit and will be skipped.`);
+          continue;
+        }
+
         const chunks = await extractAndSplitTextFromFile(doc);
         if (chunks.length && ragInstance.value) {
-          for (const chunk of chunks) {
-            await ragInstance.value.storeMemory(chunk);
+          for (let i = 0; i < chunks.length; i += BATCH_SIZE) {
+            const batch = chunks.slice(i, i + BATCH_SIZE);
+            await ragInstance.value.storeMemory(batch);
           }
           processedDocuments.value.push(doc.name);
         }
@@ -118,6 +127,7 @@ export const useRagStore = defineStore('rag', () => {
     documents.value = [];
     processedDocuments.value = [];
     ragInstance.value = null;
+    isProcessing.value = false;
   }
 
   return {

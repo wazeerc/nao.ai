@@ -29,13 +29,11 @@ export class RAG {
     const config = useRuntimeConfig();
     this.model = config.public.ollamaModel as string;
     this.embeddingModel = config.public.embeddingModel as string;
-
     this.llm = new ChatOllama({
       model: this.model,
       temperature: 0.1, //? Adjust as needed, higher = more creative responses
       baseUrl: config.public.ollamaUrl as string,
     });
-
     this.embeddings = new OllamaEmbeddings({
       model: this.embeddingModel,
       baseUrl: config.public.ollamaUrl as string,
@@ -50,6 +48,8 @@ export class RAG {
 
   async initializeChain() {
     if (!this.llm || !this.retriever) await this.initialize();
+    if (!this.llm) throw new Error("LLM not initialized. Please call initialize() first.");
+    if (!this.retriever) throw new Error("Retriever not initialized. Please call initialize() first.");
 
     const prompt = ChatPromptTemplate.fromTemplate(`
       Answer the following question based only on the provided context:
@@ -61,33 +61,37 @@ export class RAG {
       Answer:`);
 
     const documentChain = await createStuffDocumentsChain({
-      llm: this.llm!,
+      llm: this.llm,
       prompt,
     });
-
     this.chain = await createRetrievalChain({
-      retriever: this.retriever!,
+      retriever: this.retriever,
       combineDocsChain: documentChain,
     });
   }
 
-  async storeMemory(memory: string): Promise<void> {
+  async storeMemory(memory: string | string[]): Promise<void> {
     if (!this.initialized) await this.initialize();
 
-    const _document = new Document({
-      pageContent: memory,
-      metadata: { source: "memory" },
-    });
+    const memories = Array.isArray(memory) ? memory : [memory];
+    const newDocuments = memories.map(
+      (mem) =>
+        new Document({
+          pageContent: mem,
+          metadata: { source: "memory" },
+        })
+    );
 
-    this.documents.push(_document);
-    await this.vectorStore?.addDocuments([_document]);
+    this.documents.push(...newDocuments);
+    await this.vectorStore?.addDocuments(newDocuments);
   }
 
   async getRelevantMemory(query: string): Promise<{ context: Document[]; answer: string }> {
     if (!this.initialized) await this.initialize();
     if (!this.chain) await this.initializeChain();
+    if (!this.chain) throw new Error("Chain not initialized. Please call initialize() first.");
 
-    const response = await this.chain!.invoke({
+    const response = await this.chain.invoke({
       input: query,
     });
     return response;
