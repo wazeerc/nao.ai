@@ -59,6 +59,6 @@ const model = config.public.ollamaModel;
   <footer class="absolute bottom-3 right-3 text-right text-xs invert opacity-50 font-serif
                  motion-preset-focus motion-delay-800">
     © <a href="https://github.com/wazeerc"
-       target="_blank">wazeerc</a> 2025
+       target="_blank">wazeerc <span class="sr-only">(opens in new tab)</span></a> 2025
   </footer>
 </template>
