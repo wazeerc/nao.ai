@@ -4,16 +4,19 @@ import { resolve } from 'path';
 export default defineNuxtConfig({
   app: {
     head: {
-      title: 'nao.ai - Your Local AI Assistant',
+      title: 'nao.ai - Your Private AI Companion',
       meta: [
-        { name: 'description', content: 'A web interface for interacting with local language models.' }
+        { name: 'description', content: 'nao.ai - Your Private AI Companion. A web interface for interacting with local language models.' }
       ],
       link: [
         { rel: 'icon', type: 'image/svg+xml', href: '/naoai-logo.svg' },
         { rel: 'apple-touch-icon', sizes: '180x180', href: '/naoai-logo.svg' },
         { rel: 'icon', type: 'image/svg+xml', sizes: '32x32', href: '/naoai-logo.svg' },
         { rel: 'icon', type: 'image/svg+xml', sizes: '16x16', href: '/naoai-logo.svg' }
-      ]
+      ],
+      htmlAttrs: {
+        lang: 'en',
+      },
     }
   },
   alias: {

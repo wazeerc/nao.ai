@@ -14,9 +14,10 @@ const formattedMessage = computed(() => !props.isUser ? marked(props.message) : 
 const hasBeenCopied = ref<boolean>(false);
 const copyToClipboard = async () => {
   await navigator.clipboard.writeText(props.message);
+  hasBeenCopied.value = true;
   setTimeout(() => {
-    hasBeenCopied.value = true;
-  }, 200);
+    hasBeenCopied.value = false;
+  }, 1000);
 };
 
 const isThoughtExpanded = ref<boolean>(false);
@@ -72,14 +73,16 @@ const toggleThought = () => isThoughtExpanded.value = !isThoughtExpanded.value;
       )"
                v-html="formattedMessage" />
 
-      <UButton v-if="!isUser && !isThought && message.length > 1000 && !hasBeenCopied"
-               icon="i-heroicons-clipboard"
+      <UButton v-if="!isUser && !isThought && message.length > 1000"
+               :icon="hasBeenCopied ? 'i-heroicons-check' : 'i-heroicons-clipboard'"
                class="justify-end w-fit ml-auto"
                :class="cn('mt-1 cursor-pointer motion-preset-pop motion-delay-200',
                 'group-hover:motion-preset-seesaw-lg')"
                size="xs"
-               color="neutral"
+               :color="hasBeenCopied ? 'primary' : 'neutral'"
                variant="ghost"
+               :aria-label="hasBeenCopied ? 'Copied!' : 'Copy message to clipboard'"
+               :disabled="hasBeenCopied"
                @click.prevent="copyToClipboard" />
     </div>
   </div>
