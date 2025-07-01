@@ -28,6 +28,7 @@ const handleFileChange = async (event) => {
   const file = event.target.files[0];
   if (!file) return;
 
+  chatStore.isLoading = true;
   try {
     if(file.type === 'application/pdf' || file.type === 'text/plain'){
       ragStore.addDocument(file);
@@ -45,6 +46,8 @@ const handleFileChange = async (event) => {
   } catch (error) {
     console.error('Error reading file:', error);
     isDocumentError.value = true;
+  } finally {
+    chatStore.isLoading = false;
   }
 };
 </script>
@@ -73,6 +76,7 @@ const handleFileChange = async (event) => {
                  variant="subtle"
                  v-model="chatInput"
                  placeholder="✨ Curious minds ask..."
+                 :disabled="chatStore.isLoading || ragStore.isProcessing"
                  @keydown="(e) => {
                   if (e.key === 'Enter' && !e.shiftKey) {
                     e.preventDefault();
@@ -97,7 +101,7 @@ const handleFileChange = async (event) => {
                variant="subtle"
                aria-label="Upload a .txt or .pdf file"
                title="Upload .txt or .pdf file"
-               :disabled="ragStore.isProcessing"
+               :disabled="ragStore.isProcessing || chatStore.isLoading"
                @click="handleDocumentUpload" />
 
       <UButton icon="i-heroicons-paper-airplane"
@@ -106,7 +110,7 @@ const handleFileChange = async (event) => {
                color="secondary"
                variant="solid"
                aria-label="Send message"
-               :disabled="!chatInput || ragStore.isProcessing"
+               :disabled="!chatInput || ragStore.isProcessing || chatStore.isLoading"
                @click="handleNewMessage" />
     </div>
   </div>
