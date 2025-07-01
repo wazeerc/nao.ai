@@ -6,6 +6,7 @@ export const useRagStore = defineStore('rag', () => {
   const ragInstance = ref<RAG | null>(null);
   const isProcessing = ref(false);
   const processedDocuments = ref<string[]>([]);
+  const error = ref<string | null>(null);
 
   function initializeRAG() {
     if (!ragInstance.value) ragInstance.value = new RAG();
@@ -20,6 +21,7 @@ export const useRagStore = defineStore('rag', () => {
 
     initializeRAG();
     isProcessing.value = true;
+    error.value = null;
 
     const MAX_FILE_SIZE_MB = 15;
     const BATCH_SIZE = 100;
@@ -27,7 +29,7 @@ export const useRagStore = defineStore('rag', () => {
       for (const doc of docs) {
         const fileSizeInMB = doc.size / (1024 * 1024);
         if (fileSizeInMB > MAX_FILE_SIZE_MB) {
-          alert(`File "${doc.name}" (${fileSizeInMB.toFixed(2)} MB) exceeds the ${MAX_FILE_SIZE_MB} MB limit and will be skipped.`);
+          error.value = `File "${doc.name.slice(0,30)}..." (${fileSizeInMB.toFixed(2)} MB) exceeds the ${MAX_FILE_SIZE_MB} MB limit and will be skipped.`;
           continue;
         }
 
@@ -40,9 +42,10 @@ export const useRagStore = defineStore('rag', () => {
           processedDocuments.value.push(doc.name);
         }
       }
-    } catch (error) {
-      console.error('Error processing documents:', error);
-      throw error;
+    } catch (err) {
+      console.error('Error processing documents:', err);
+      error.value = err instanceof Error ? err.message : String(err);
+      throw err;
     } finally {
       isProcessing.value = false;
     }
@@ -128,6 +131,7 @@ export const useRagStore = defineStore('rag', () => {
     processedDocuments.value = [];
     ragInstance.value = null;
     isProcessing.value = false;
+    error.value = null;
   }
 
   return {
@@ -135,6 +139,7 @@ export const useRagStore = defineStore('rag', () => {
     ragInstance,
     isProcessing,
     processedDocuments,
+    error,
     addDocument,
     processDocuments,
     queryRAG,

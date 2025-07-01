@@ -1,5 +1,5 @@
 <script setup>
-import { ref } from 'vue';
+import { ref, watch } from 'vue';
 
 const chatStore = useChatStore();
 const chatInput = ref('');
@@ -13,12 +13,10 @@ const handleNewMessage = () => {
 const ragStore = useRagStore();
 const document = ref(null);
 const documentName = ref(null)
-const isDocumentError = ref(false)
 
 watch(() => ragStore.documents.length, (newLength) => {
   if (newLength === 0) {
     documentName.value = '';
-    isDocumentError.value = false;
   }
 });
 
@@ -33,19 +31,16 @@ const handleFileChange = async (event) => {
     if(file.type === 'application/pdf' || file.type === 'text/plain'){
       ragStore.addDocument(file);
       documentName.value = file.name;
-      isDocumentError.value = false;
 
       await ragStore.processDocuments([file]);
     }
     else{
-      isDocumentError.value = true;
-      throw new Error(`'${file.type}' is not supported yet.`);
+      ragStore.error = `'${file.type}' is not supported yet.`;
     }
 
     event.target.value = '';
   } catch (error) {
     console.error('Error reading file:', error);
-    isDocumentError.value = true;
   } finally {
     chatStore.isLoading = false;
   }
@@ -53,7 +48,10 @@ const handleFileChange = async (event) => {
 </script>
 
 <template>
-  <div v-show="documentName && !isDocumentError" class="bg-slate-200/75 dark:bg-slate-800/50 mb-2 p-1 rounded-lg shadow-xs w-fit">
+  <div v-if="ragStore.error" class="bg-amber-100 text-slate-700 text-sm mb-2 p-1 px-2 rounded-lg shadow-xs w-fit motion-preset-slide-up">
+    {{ ragStore.error }}
+  </div>
+  <div v-show="documentName && !ragStore.error" class="bg-slate-200/75 dark:bg-slate-800/50 mb-2 p-1 rounded-lg shadow-xs w-fit motion-preset-slide-up">
     <div class="flex items-center gap-2">
       <p class="px-1 text-slate-600 dark:text-slate-400 truncate max-w-80 text-sm">{{ documentName }}</p>
       <div v-if="ragStore.isProcessing" class="animate-spin h-4 w-4 border-2 border-blue-500 border-t-transparent rounded-full">
@@ -64,7 +62,6 @@ const handleFileChange = async (event) => {
   </div>
   <div
        class="flex justify-between items-center gap-4 max-h-54 motion-preset-slide-up-lg motion-delay-500">
-    <div class="w-full">
       <label for="chat-input" class="sr-only">Chat input</label>
       <UTextarea class="w-full"
                  id="chat-input"
@@ -86,7 +83,6 @@ const handleFileChange = async (event) => {
                  :ui="{
                   base: 'resize-none transition-all duration-300 bg-(--ui-color-neutral-100)/50 dark:bg-(--ui-color-neutral-800)/50 border-slate-300 dark:border-slate-700'
                 }" />
-    </div>
     <div class="flex items-center gap-2">
       <input ref="document"
              type="file"
@@ -97,7 +93,7 @@ const handleFileChange = async (event) => {
       <UButton icon="i-heroicons-paper-clip"
                class="cursor-pointer"
                size="md"
-               :color="isDocumentError ? 'error' : 'neutral'"
+               color="neutral"
                variant="subtle"
                aria-label="Upload a .txt or .pdf file"
                title="Upload .txt or .pdf file"
