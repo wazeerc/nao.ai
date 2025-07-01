@@ -71,7 +71,7 @@ docker compose down
 
 nao.ai now supports Retrieval-Augmented Generation (RAG) to chat with your documents:
 
-- **Supported formats**: PDF and TXT files
+- **Supported formats**: PDF and TXT files (up to 15MB)
 - **Upload documents**: Click the 📎 attachment icon in the chat input
 - **Contextual responses**: Get answers based on your uploaded documents
 

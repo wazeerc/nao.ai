@@ -34,8 +34,8 @@ export default defineNuxtConfig({
   },
   runtimeConfig: {
     public: {
-      ollamaModel: process.env.NUXT_PUBLIC_OLLAMA_MODEL,
-      embeddingModel: process.env.NUXT_PUBLIC_EMBEDDING_MODEL,
+      ollamaModel: process.env.NUXT_PUBLIC_OLLAMA_MODEL || 'deepseek-r1:1.5b',
+      embeddingModel: process.env.NUXT_PUBLIC_EMBEDDING_MODEL || 'nomic-embed-text',
       ollamaUrl: process.env.NUXT_PUBLIC_OLLAMA_URL || 'http://localhost:11434'
     }
   },
