@@ -14,9 +14,10 @@ const formattedMessage = computed(() => !props.isUser ? marked(props.message) : 
 const hasBeenCopied = ref<boolean>(false);
 const copyToClipboard = async () => {
   await navigator.clipboard.writeText(props.message);
+  hasBeenCopied.value = true;
   setTimeout(() => {
-    hasBeenCopied.value = true;
-  }, 200);
+    hasBeenCopied.value = false;
+  }, 1000);
 };
 
 const isThoughtExpanded = ref<boolean>(false);
@@ -24,7 +25,7 @@ const toggleThought = () => isThoughtExpanded.value = !isThoughtExpanded.value;
 </script>
 
 <template>
-  <div class="flex flex-col w-fit max-w-full">
+  <div class="flex flex-col w-fit max-w-full md:max-w-3/5">
     <article v-if="isLoading"
              class="flex items-center gap-2 shadow-xs rounded-xl px-4 py-2 motion-preset-blur-right motion-delay-200 transition-all duration-300 bg-blue-200/50 dark:bg-slate-800/50">
       <div class="w-2 h-2 bg-emerald-500 rounded-full animate-pulse" />
@@ -72,14 +73,16 @@ const toggleThought = () => isThoughtExpanded.value = !isThoughtExpanded.value;
       )"
                v-html="formattedMessage" />
 
-      <UButton v-if="!isUser && !isThought && message.length > 1000 && !hasBeenCopied"
-               icon="i-heroicons-clipboard"
+      <UButton v-if="!isUser && !isThought && message.length > 1000"
+               :icon="hasBeenCopied ? 'i-heroicons-check' : 'i-heroicons-clipboard'"
                class="justify-end w-fit ml-auto"
                :class="cn('mt-1 cursor-pointer motion-preset-pop motion-delay-200',
                 'group-hover:motion-preset-seesaw-lg')"
                size="xs"
-               color="neutral"
+               :color="hasBeenCopied ? 'primary' : 'neutral'"
                variant="ghost"
+               :aria-label="hasBeenCopied ? 'Copied!' : 'Copy message to clipboard'"
+               :disabled="hasBeenCopied"
                @click.prevent="copyToClipboard" />
     </div>
   </div>

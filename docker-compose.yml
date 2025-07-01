@@ -1,20 +1,17 @@
 services:
   ollama:
-    build:
-      context: .
-      dockerfile: dockerfile.ollama
-    image: "ollama"
+    image: ghcr.io/wazeerc/nao.ai-ollama:latest
     container_name: ollama-service
     ports:
       - "11434:11434"
     volumes:
       - data:/root/.ollama
     environment:
-      - LLAMA_MODEL=${LLAMA_MODEL}
+      - NUXT_PUBLIC_OLLAMA_MODEL=${NUXT_PUBLIC_OLLAMA_MODEL}
+      - NUXT_PUBLIC_EMBEDDING_MODEL=${NUXT_PUBLIC_EMBEDDING_MODEL}
 
   nao-ai:
-    build: .
-    image: "nao-ai"
+    image: ghcr.io/wazeerc/nao.ai-app:latest
     container_name: nao-ai-ui
     env_file:
       - .env
@@ -23,8 +20,9 @@ services:
     depends_on:
       - ollama
     environment:
-      - OLLAMA_API_URL=http://ollama:11434/
-      - NUXT_PUBLIC_LLAMA_MODEL=${LLAMA_MODEL}
+      - NUXT_PUBLIC_OLLAMA_MODEL=${NUXT_PUBLIC_OLLAMA_MODEL}
+      - NUXT_PUBLIC_EMBEDDING_MODEL=${NUXT_PUBLIC_EMBEDDING_MODEL}
+      - NUXT_PUBLIC_OLLAMA_URL=${NUXT_PUBLIC_OLLAMA_URL}
       - COMPOSE_PROJECT_NAME=${COMPOSE_PROJECT_NAME}
 
 volumes:

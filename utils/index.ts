@@ -13,11 +13,11 @@ type LlamaResponse = {
 export async function fetchLlamaResponse(input: string): Promise<LlamaResponse> {
   try {
     const config = useRuntimeConfig();
-    const model = config.public.llamaModel;
+    const model = config.public.ollamaModel;
 
     if (!model) {
       console.error('Runtime config:', config.public);
-      throw new Error('Llama model not found in runtime config');
+      throw new Error('Ollama model not found in runtime config');
     }
 
     const response = await fetch("http://localhost:11434/api/generate", {
