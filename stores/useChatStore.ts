@@ -22,7 +22,24 @@ export const useChatStore = defineStore('chat', () => {
     addMessage('', false);
 
     try {
-      const response = await fetchLlamaResponse(text);
+      const ragStore = useRagStore();
+      let contextualPrompt = text;
+
+      if (ragStore.processedDocuments.length > 0 && ragStore.ragInstance) {
+        try {
+          const ragResponse = await ragStore.queryRAG(text);
+
+          if (ragResponse && ragResponse.answer) {
+            contextualPrompt = `Context from uploaded documents: ${ragResponse.answer}
+            User question: ${text}
+            Please answer the user's question using the provided context when relevant.`;
+          }
+        } catch (ragError) {
+          console.warn('RAG query failed, proceeding with normal chat:', ragError);
+        }
+      }
+
+      const response = await fetchLlamaResponse(contextualPrompt);
       messages.value[messages.value.length - 1].text = response.response;
       if (response.thoughts) {
         addMessage(response.thoughts, false, true);

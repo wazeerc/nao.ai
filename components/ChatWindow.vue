@@ -1,8 +1,10 @@
 <script setup>
-const store = useChatStore();
+const ragStore = useRagStore()
+const chatStore = useChatStore();
+
 const chatContainer = ref(null);
 
-watch(() => store.messages, () => {
+watch(() => chatStore.messages, () => {
   nextTick(() => {
     if (chatContainer.value)
       chatContainer.value.scrollTop = chatContainer.value.scrollHeight;
@@ -13,7 +15,7 @@ watch(() => store.messages, () => {
 <template>
   <section ref="chatContainer"
            class="flex flex-col gap-4 w-full overflow-y-auto pb-4 rounded">
-    <div v-if="!store.messages.length"
+    <div v-if="!chatStore.messages.length && !ragStore.documents.length"
          class="grid place-content-center h-full">
       <div class="flex flex-col items-center text-center">
         <img src="/naoai-logo-mono.svg"
@@ -25,14 +27,14 @@ watch(() => store.messages, () => {
       </div>
     </div>
 
-    <template v-for="(message, index) in store.messages"
+    <template v-for="(message, index) in chatStore.messages"
               :key="index">
       <div class="flex flex-col w-full gap-4"
            :class="message.isUser ? 'items-end' : 'items-start'">
         <ChatBubble :message="message.text"
                     :isUser="message.isUser"
                     :isThought="message.isThought"
-                    :isLoading="!message.isUser && index === store.messages.length - 1 && store.isLoading" />
+                    :isLoading="!message.isUser && index === chatStore.messages.length - 1 && chatStore.isLoading" />
       </div>
     </template>
   </section>

@@ -10,6 +10,7 @@
 
 - 💬 **Chat with any Model**: Seamlessly interact with any language model supported by [Ollama](https://ollama.com/search).
 - 🧠 **Reasoning Insights**: View the internal thought process of thinking/reasoning models.
+- 📑 **RAG Document Support**: Securely upload and chat with your documents (.pdf & .txt) using Retrieval-Augmented Generation.
 - 🔒 **Privacy-Focused**: All processing is done locally. Your data never leaves your machine.
 - 🪄 **Easy Docker Setup**: Get up and running with a single command using Docker Compose.
 
@@ -28,7 +29,7 @@ This is the easiest and recommended way to get started.
 git clone https://github.com/wazeerc/nao.ai.git && cd nao.ai
 ```
 
-### 2. Configure Your Model
+### 2. Configure Your Models
 
 Create a `.env` file by copying the example file.
 
@@ -36,12 +37,15 @@ Create a `.env` file by copying the example file.
 cp .env.example .env
 ```
 
-Now, open the `.env` file and set the `NUXT_PUBLIC_LLAMA_MODEL` you want to use. The `LLAMA_MODEL` variable will automatically use this value. For example:
+Now, open the `.env` file and configure your models:
 
 ```bash
 # .env
-NUXT_PUBLIC_LLAMA_MODEL="deepseek-r1:1.5b"
-LLAMA_MODEL="$NUXT_PUBLIC_LLAMA_MODEL"
+NUXT_PUBLIC_OLLAMA_MODEL="deepseek-r1:1.5b"
+NUXT_PUBLIC_EMBEDDING_MODEL="nomic-embed-text"
+NUXT_PUBLIC_OLLAMA_URL="http://localhost:11434"
+
+COMPOSE_PROJECT_NAME=nao-ai
 ```
 
 > [!NOTE]
@@ -63,6 +67,14 @@ To stop the application, run:
 docker compose down
 ```
 
+## 📄 RAG Document Support
+
+nao.ai now supports Retrieval-Augmented Generation (RAG) to chat with your documents:
+
+- **Supported formats**: PDF and TXT files
+- **Upload documents**: Click the 📎 attachment icon in the chat input
+- **Contextual responses**: Get answers based on your uploaded documents
+
 ## 🧑‍💻 Local Development Setup
 
 For those who prefer to run the application without Docker.
@@ -79,7 +91,7 @@ For those who prefer to run the application without Docker.
 pnpm install
 ```
 
-### 2. Configure Your Model
+### 2. Configure Your Models
 
 Follow step 2 from the "Getting Started with Docker" section to create and configure your `.env` file.
 
@@ -88,7 +100,11 @@ Follow step 2 from the "Getting Started with Docker" section to create and confi
 Pull and run your desired model with Ollama.
 
 ```bash
-ollama run deepseek-coder-v2:16b # Replace with the model from your .env file
+# Pull the main model
+ollama pull deepseek-r1:1.5b # Replace with your chosen model
+
+# Pull the embedding model for RAG support
+ollama pull nomic-embed-text
 ```
 
 ### 4. Start the Dev Server
@@ -129,8 +145,9 @@ echo 'Installed models: ' && docker run --rm -v nao-ai_data:/data alpine ls /dat
 
 ### Environment Variables
 
-- `NUXT_PUBLIC_LLAMA_MODEL`: Model name used by the frontend.
-- `LLAMA_MODEL`: Model name for the Docker container to pull.
+- `NUXT_PUBLIC_OLLAMA_MODEL`: Model name used by both frontend and Docker.
+- `NUXT_PUBLIC_EMBEDDING_MODEL`: Embedding model name used for RAG functionality.
+- `NUXT_PUBLIC_OLLAMA_URL`: Ollama server URL used by the frontend.
 - `COMPOSE_PROJECT_NAME`: The project name for Docker Compose.
 
 ---

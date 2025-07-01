@@ -34,7 +34,9 @@ export default defineNuxtConfig({
   },
   runtimeConfig: {
     public: {
-      llamaModel: process.env.NUXT_PUBLIC_LLAMA_MODEL
+      ollamaModel: process.env.NUXT_PUBLIC_OLLAMA_MODEL,
+      embeddingModel: process.env.NUXT_PUBLIC_EMBEDDING_MODEL,
+      ollamaUrl: process.env.NUXT_PUBLIC_OLLAMA_URL || 'http://localhost:11434'
     }
   },
   colorMode: {

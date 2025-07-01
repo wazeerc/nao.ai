@@ -24,7 +24,7 @@ const toggleThought = () => isThoughtExpanded.value = !isThoughtExpanded.value;
 </script>
 
 <template>
-  <div class="flex flex-col w-fit max-w-full">
+  <div class="flex flex-col w-fit max-w-full md:max-w-3/5">
     <article v-if="isLoading"
              class="flex items-center gap-2 shadow-xs rounded-xl px-4 py-2 motion-preset-blur-right motion-delay-200 transition-all duration-300 bg-blue-200/50 dark:bg-slate-800/50">
       <div class="w-2 h-2 bg-emerald-500 rounded-full animate-pulse" />
