@@ -71,6 +71,13 @@ export class RAG {
   }
 
   async storeMemory(memory: string | string[]): Promise<void> {
+    if (!memory || (Array.isArray(memory) && memory.length === 0))
+      throw new Error('Memory content cannot be empty');
+    if (Array.isArray(memory) && memory.some(m => !m || m.trim().length === 0))
+      throw new Error('Memory array cannot contain empty strings');
+    if (typeof memory === 'string' && memory.trim().length === 0)
+      throw new Error('Memory string cannot be empty');
+
     if (!this.initialized) await this.initialize();
 
     const memories = Array.isArray(memory) ? memory : [memory];
