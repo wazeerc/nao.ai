@@ -1,8 +1,8 @@
-# nao.ai 🧠
+# nao.ai 🧠 - Your Private AI Companion
 
 (脑; pronounced /now • dot • ai/); _nao_ means "brain" in Mandarin.
 
-**nao.ai** is a sleek and intuitive web interface that allows you to run and chat with powerful open-source language models directly on your own machine. Your conversations are private and happen entirely offline.
+**nao.ai** is Your Private AI Companion, a sleek and intuitive web interface that allows you to run and chat with powerful open-source language models directly on your own machine. Your conversations are private and happen entirely offline.
 
 ![nao-ai-demo](https://github.com/user-attachments/assets/d73be367-53d6-46a8-bc5c-f23d8d9cc687)
 

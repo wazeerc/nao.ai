@@ -22,7 +22,7 @@ watch(() => chatStore.messages, () => {
              alt="naoai Logo"
              class="w-40 mb-6 motion-preset-focus-lg motion-delay-300 opacity-20 dark:invert dark:opacity-80 transition-all duration-300">
         <p class="font-semibold mt-2 motion-preset-slide-up-md motion-delay-500 transition-all duration-300 text-slate-600 dark:text-slate-500">
-          nao.ai, Open-Source AI at your fingertips.
+          Your Private AI Companion
         </p>
       </div>
     </div>

@@ -4,9 +4,9 @@ import { resolve } from 'path';
 export default defineNuxtConfig({
   app: {
     head: {
-      title: 'nao.ai - Your Local AI Assistant',
+      title: 'nao.ai - Your Private AI Companion',
       meta: [
-        { name: 'description', content: 'A web interface for interacting with local language models.' }
+        { name: 'description', content: 'nao.ai - Your Private AI Companion. A web interface for interacting with local language models.' }
       ],
       link: [
         { rel: 'icon', type: 'image/svg+xml', href: '/naoai-logo.svg' },
