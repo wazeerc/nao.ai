@@ -126,10 +126,10 @@ export const useRagStore = defineStore('rag', () => {
     return await ragInstance.value.getRelevantMemory(query);
   }
 
-  function resetDocuments() {
+  async function resetDocuments() {
     documents.value = [];
     processedDocuments.value = [];
-    ragInstance.value = null;
+    if (ragInstance.value) await ragInstance.value.reset();
     isProcessing.value = false;
     error.value = null;
   }

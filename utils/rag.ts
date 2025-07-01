@@ -70,6 +70,19 @@ export class RAG {
     });
   }
 
+  async reset() {
+    this.documents = [];
+    if (this.embeddings) {
+      this.vectorStore = new MemoryVectorStore(this.embeddings);
+      this.retriever = this.vectorStore.asRetriever({ k: 3 });
+      await this.initializeChain();
+    } else {
+      this.vectorStore = null;
+      this.retriever = null;
+      this.chain = null;
+    }
+  }
+
   async storeMemory(memory: string | string[]): Promise<void> {
     if (!memory || (Array.isArray(memory) && memory.length === 0))
       throw new Error('Memory content cannot be empty');
