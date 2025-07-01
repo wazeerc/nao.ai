@@ -1,5 +1,6 @@
 <script setup>
 const colorMode = useColorMode();
+const ariaLabel = computed(() => `Switch to ${colorMode.value === 'dark' ? 'light' : 'dark'} mode`);
 </script>
 
 <template>
@@ -11,6 +12,7 @@ const colorMode = useColorMode();
       variant="ghost"
       @click="colorMode.preference = colorMode.value === 'dark' ? 'light' : 'dark'"
       class="motion-preset-slide-left motion-delay-800 cursor-pointer"
+      :aria-label="ariaLabel"
       :ui="{
         base: 'transition-all duration-300'
       }"

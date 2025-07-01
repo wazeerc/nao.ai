@@ -13,7 +13,10 @@ export default defineNuxtConfig({
         { rel: 'apple-touch-icon', sizes: '180x180', href: '/naoai-logo.svg' },
         { rel: 'icon', type: 'image/svg+xml', sizes: '32x32', href: '/naoai-logo.svg' },
         { rel: 'icon', type: 'image/svg+xml', sizes: '16x16', href: '/naoai-logo.svg' }
-      ]
+      ],
+      htmlAttrs: {
+        lang: 'en',
+      },
     }
   },
   alias: {

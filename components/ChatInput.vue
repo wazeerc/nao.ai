@@ -53,14 +53,18 @@ const handleFileChange = async (event) => {
   <div v-show="documentName && !isDocumentError" class="bg-slate-200/75 dark:bg-slate-800/50 mb-2 p-1 rounded-lg shadow-xs w-fit">
     <div class="flex items-center gap-2">
       <p class="px-1 text-slate-600 dark:text-slate-400 truncate max-w-80 text-sm">{{ documentName }}</p>
-      <div v-if="ragStore.isProcessing" class="animate-spin h-4 w-4 border-2 border-blue-500 border-t-transparent rounded-full"></div>
-      <div v-else-if="ragStore.processedDocuments.includes(documentName)" class="text-green-500 text-sm pr-1">📑</div>
+      <div v-if="ragStore.isProcessing" class="animate-spin h-4 w-4 border-2 border-blue-500 border-t-transparent rounded-full">
+        <span class="sr-only">Processing document</span>
+      </div>
+      <div v-else-if="ragStore.processedDocuments.includes(documentName)" class="text-green-500 text-sm pr-1">📑 <span class="sr-only">Document processed</span></div>
     </div>
   </div>
   <div
        class="flex justify-between items-center gap-4 max-h-54 motion-preset-slide-up-lg motion-delay-500">
     <div class="w-full">
+      <label for="chat-input" class="sr-only">Chat input</label>
       <UTextarea class="w-full"
+                 id="chat-input"
                  autoresize
                  autofocus
                  :rows="1"
@@ -91,6 +95,7 @@ const handleFileChange = async (event) => {
                size="md"
                :color="isDocumentError ? 'error' : 'neutral'"
                variant="subtle"
+               aria-label="Upload a .txt or .pdf file"
                title="Upload .txt or .pdf file"
                :disabled="ragStore.isProcessing"
                @click="handleDocumentUpload" />
@@ -100,6 +105,7 @@ const handleFileChange = async (event) => {
                size="md"
                color="secondary"
                variant="solid"
+               aria-label="Send message"
                :disabled="!chatInput || ragStore.isProcessing"
                @click="handleNewMessage" />
     </div>
