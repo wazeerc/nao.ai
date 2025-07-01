@@ -1,9 +1,6 @@
 services:
   ollama:
-    build:
-      context: .
-      dockerfile: dockerfile.ollama
-    image: "ollama"
+    image: ghcr.io/wazeerc/nao.ai-ollama:latest
     container_name: ollama-service
     ports:
       - "11434:11434"
@@ -14,8 +11,7 @@ services:
       - NUXT_PUBLIC_EMBEDDING_MODEL=${NUXT_PUBLIC_EMBEDDING_MODEL}
 
   nao-ai:
-    build: .
-    image: "nao-ai"
+    image: ghcr.io/wazeerc/nao.ai-app:latest
     container_name: nao-ai-ui
     env_file:
       - .env
