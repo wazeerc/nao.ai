@@ -40,7 +40,7 @@ export class RAG {
     });
 
     this.vectorStore = new MemoryVectorStore(this.embeddings);
-    this.retriever = this.vectorStore.asRetriever({ k: 1 });
+    this.retriever = this.vectorStore.asRetriever({ k: 3 }); //? Adjust k as needed, higher = more context
 
     await this.initializeChain();
     this.initialized = true;
