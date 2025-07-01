@@ -6,6 +6,8 @@
 
 ![nao-ai-demo](https://github.com/user-attachments/assets/d73be367-53d6-46a8-bc5c-f23d8d9cc687)
 
+[![Publish Docker Images](https://github.com/wazeerc/nao.ai/actions/workflows/publish.yml/badge.svg)](https://github.com/wazeerc/nao.ai/actions/workflows/publish.yml)
+
 ## ✨ Features
 
 - 💬 **Chat with any Model**: Seamlessly interact with any language model supported by [Ollama](https://ollama.com/search).
@@ -35,13 +37,12 @@ This is the easiest and recommended way to get started.
 Download the `docker-compose.yml` file from the repository. You can download it manually or use the following command:
 
 ```bash
-mkdir nao.ai && cd nao.ai
-curl -o docker-compose.yml https://raw.githubusercontent.com/wazeerc/nao.ai/main/docker-compose.yml
+mkdir nao.ai && cd nao.ai && curl -o docker-compose.yml https://raw.githubusercontent.com/wazeerc/nao.ai/main/docker-compose.yml
 ```
 
 ### 2. Create `.env` File
 
-Create a file named `.env` in the same directory and add the following content:
+Create a file named `.env` in the same directory and add the following content (or use `echo`):
 
 ```bash
 NUXT_PUBLIC_OLLAMA_MODEL="deepseek-r1:1.5b"
