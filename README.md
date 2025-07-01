@@ -13,6 +13,13 @@
 - 📑 **RAG Document Support**: Securely upload and chat with your documents (.pdf & .txt) using Retrieval-Augmented Generation.
 - 🔒 **Privacy-Focused**: All processing is done locally. Your data never leaves your machine.
 - 🪄 **Easy Docker Setup**: Get up and running with a single command using Docker Compose.
+### 🆕 RAG Support
+
+nao.ai now supports Retrieval-Augmented Generation (RAG) to chat with your documents:
+
+- **Supported formats**: PDF and TXT files (up to 15MB)
+- **Upload documents**: Click the 📎 attachment icon in the chat input
+- **Contextual responses**: Get answers based on your uploaded documents, solving the problem of "hallucination" in AI responses.
 
 ## 🚀 Getting Started with Docker
 
@@ -23,26 +30,23 @@ This is the easiest and recommended way to get started.
 - [Docker](https://docs.docker.com/get-docker/)
 - [Docker Compose](https://docs.docker.com/compose/install/)
 
-### 1. Clone the Repository
+### 1. Download `docker-compose.yml`
+
+Download the `docker-compose.yml` file from the repository. You can download it manually or use the following command:
 
 ```bash
-git clone https://github.com/wazeerc/nao.ai.git && cd nao.ai
+mkdir nao.ai && cd nao.ai
+curl -o docker-compose.yml https://raw.githubusercontent.com/wazeerc/nao.ai/main/docker-compose.yml
 ```
 
-### 2. Configure Your Models
+### 2. Create `.env` File
 
-Create a `.env` file by copying the example file.
-
-```bash
-cp .env.example .env
-```
-
-Now, open the `.env` file and configure your models:
+Create a file named `.env` in the same directory and add the following content:
 
 ```bash
-# .env
 NUXT_PUBLIC_OLLAMA_MODEL="deepseek-r1:1.5b"
 NUXT_PUBLIC_EMBEDDING_MODEL="nomic-embed-text"
+
 NUXT_PUBLIC_OLLAMA_URL="http://localhost:11434"
 
 COMPOSE_PROJECT_NAME=nao-ai
@@ -66,14 +70,6 @@ To stop the application, run:
 ```bash
 docker compose down
 ```
-
-## 📄 RAG Document Support
-
-nao.ai now supports Retrieval-Augmented Generation (RAG) to chat with your documents:
-
-- **Supported formats**: PDF and TXT files (up to 15MB)
-- **Upload documents**: Click the 📎 attachment icon in the chat input
-- **Contextual responses**: Get answers based on your uploaded documents
 
 ## 🧑‍💻 Local Development Setup
 
