@@ -22,6 +22,8 @@ export const useRagStore = defineStore('rag', () => {
 
     initializeRAG();
     processingAbortController.value = new AbortController();
+    if (ragInstance.value) ragInstance.value.abortController = processingAbortController.value;
+
     isProcessing.value = true;
     error.value = null;
 
@@ -50,6 +52,7 @@ export const useRagStore = defineStore('rag', () => {
       }
     } catch (err) {
       if (err instanceof Error && err.name === 'AbortError') return;
+      if (err instanceof Error && err.message === 'Operation was aborted') return;
 
       console.error('Error processing documents:', err);
       error.value = err instanceof Error ? err.message : String(err);
@@ -57,6 +60,7 @@ export const useRagStore = defineStore('rag', () => {
     } finally {
       isProcessing.value = false;
       processingAbortController.value = null;
+      if (ragInstance.value) ragInstance.value.abortController = null;
     }
   }
 
