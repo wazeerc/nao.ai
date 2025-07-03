@@ -10,6 +10,7 @@ interface Message {
 export const useChatStore = defineStore('chat', () => {
   const messages = ref<Message[]>([]);
   const isLoading = ref(false);
+  const abortController = ref<AbortController | null>(null);
 
   function addMessage(text: string, isUser: boolean, isThought = false) {
     messages.value.push({ text, isUser, isThought });
@@ -18,6 +19,7 @@ export const useChatStore = defineStore('chat', () => {
   async function sendMessage(text: string) {
     addMessage(text, true);
 
+    abortController.value = new AbortController();
     isLoading.value = true;
     addMessage('', false);
 
@@ -39,7 +41,10 @@ export const useChatStore = defineStore('chat', () => {
         }
       }
 
-      const response = await fetchLlamaResponse(contextualPrompt);
+      const response = await fetchLlamaResponse(contextualPrompt, abortController.value);
+
+      if (abortController.value?.signal.aborted) return;
+
       messages.value[messages.value.length - 1].text = response.response;
       if (response.thoughts) {
         addMessage(response.thoughts, false, true);
@@ -47,12 +52,20 @@ export const useChatStore = defineStore('chat', () => {
 
       isLoading.value = false;
     } catch (error) {
+      if (error instanceof Error && error.name === 'AbortError') return;
       messages.value[messages.value.length - 1].text = 'Sorry, I encountered an error. Please ensure OLlama is running and try again.';
       isLoading.value = false;
+    } finally {
+      abortController.value = null;
     }
   }
 
   function resetChat() {
+    if (abortController.value) {
+      abortController.value.abort();
+      abortController.value = null;
+    }
+
     messages.value = [];
     isLoading.value = false;
   }

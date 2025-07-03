@@ -7,6 +7,7 @@ export const useRagStore = defineStore('rag', () => {
   const isProcessing = ref(false);
   const processedDocuments = ref<string[]>([]);
   const error = ref<string | null>(null);
+  const processingAbortController = ref<AbortController | null>(null);
 
   function initializeRAG() {
     if (!ragInstance.value) ragInstance.value = new RAG();
@@ -20,6 +21,7 @@ export const useRagStore = defineStore('rag', () => {
     if (!docs.length || isProcessing.value) return;
 
     initializeRAG();
+    processingAbortController.value = new AbortController();
     isProcessing.value = true;
     error.value = null;
 
@@ -27,6 +29,8 @@ export const useRagStore = defineStore('rag', () => {
     const BATCH_SIZE = 100;
     try {
       for (const doc of docs) {
+        if (processingAbortController.value?.signal.aborted) return;
+
         const fileSizeInMB = doc.size / (1024 * 1024);
         if (fileSizeInMB > MAX_FILE_SIZE_MB) {
           error.value = `File "${doc.name.slice(0,30)}..." (${fileSizeInMB.toFixed(2)} MB) exceeds the ${MAX_FILE_SIZE_MB} MB limit and will be skipped.`;
@@ -36,6 +40,8 @@ export const useRagStore = defineStore('rag', () => {
         const chunks = await extractAndSplitTextFromFile(doc);
         if (chunks.length && ragInstance.value) {
           for (let i = 0; i < chunks.length; i += BATCH_SIZE) {
+            if (processingAbortController.value?.signal.aborted) return;
+
             const batch = chunks.slice(i, i + BATCH_SIZE);
             await ragInstance.value.storeMemory(batch);
           }
@@ -43,11 +49,14 @@ export const useRagStore = defineStore('rag', () => {
         }
       }
     } catch (err) {
+      if (err instanceof Error && err.name === 'AbortError') return;
+
       console.error('Error processing documents:', err);
       error.value = err instanceof Error ? err.message : String(err);
       throw err;
     } finally {
       isProcessing.value = false;
+      processingAbortController.value = null;
     }
   }
 
@@ -127,6 +136,11 @@ export const useRagStore = defineStore('rag', () => {
   }
 
   async function resetDocuments() {
+    if (processingAbortController.value) {
+      processingAbortController.value.abort();
+      processingAbortController.value = null;
+    }
+
     documents.value = [];
     processedDocuments.value = [];
     if (ragInstance.value) await ragInstance.value.reset();
