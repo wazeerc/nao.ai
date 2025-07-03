@@ -1,5 +1,5 @@
-import { fetchLlamaResponse } from '@utils';
-import { ref } from 'vue';
+import { fetchLlamaResponse } from "@utils";
+import { ref } from "vue";
 
 interface Message {
   text: string;
@@ -7,7 +7,7 @@ interface Message {
   isThought?: boolean;
 }
 
-export const useChatStore = defineStore('chat', () => {
+export const useChatStore = defineStore("chat", () => {
   const messages = ref<Message[]>([]);
   const isLoading = ref(false);
   const abortController = ref<AbortController | null>(null);
@@ -21,7 +21,7 @@ export const useChatStore = defineStore('chat', () => {
 
     abortController.value = new AbortController();
     isLoading.value = true;
-    addMessage('', false);
+    addMessage("", false);
 
     try {
       const ragStore = useRagStore();
@@ -36,8 +36,9 @@ export const useChatStore = defineStore('chat', () => {
             User question: ${text}
             Please answer the user's question using the provided context when relevant.`;
           }
-        } catch (ragError) {
-          console.warn('RAG query failed, proceeding with normal chat:', ragError);
+        }
+        catch (ragError) {
+          console.warn("RAG query failed, proceeding with normal chat:", ragError);
         }
       }
 
@@ -51,11 +52,13 @@ export const useChatStore = defineStore('chat', () => {
       }
 
       isLoading.value = false;
-    } catch (error) {
-      if (error instanceof Error && error.name === 'AbortError') return;
-      messages.value[messages.value.length - 1].text = 'Sorry, I encountered an error. Please ensure OLlama is running and try again.';
+    }
+    catch (error) {
+      if (error instanceof Error && error.name === "AbortError") return;
+      messages.value[messages.value.length - 1].text = "Sorry, I encountered an error. Please ensure OLlama is running and try again.";
       isLoading.value = false;
-    } finally {
+    }
+    finally {
       abortController.value = null;
     }
   }
@@ -74,6 +77,6 @@ export const useChatStore = defineStore('chat', () => {
     messages,
     isLoading,
     sendMessage,
-    resetChat
+    resetChat,
   };
 });
