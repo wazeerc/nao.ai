@@ -33,6 +33,13 @@ watch(() => ragStore.documents.length, (newLength) => {
 
 const handleDocumentUpload = () => document.value?.click();
 
+const handleDeleteDocument = () => {
+  if (documentName.value) {
+    ragStore.removeDocument(documentName.value);
+    documentName.value = null;
+  }
+};
+
 const handleFileChange = async (event) => {
   const file = event.target.files[0];
   if (!file) return;
@@ -59,14 +66,27 @@ const handleFileChange = async (event) => {
   <div v-if="ragStore.error" class="bg-amber-100 text-slate-700 text-sm mb-2 p-1 px-2 rounded-lg shadow-xs w-fit motion-preset-slide-up">
     {{ ragStore.error }}
   </div>
-  <div v-show="documentName && !ragStore.error" class="bg-slate-200/75 dark:bg-slate-800/50 mb-2 p-1 rounded-lg shadow-xs w-fit motion-preset-slide-up">
-    <div class="flex items-center gap-2">
-      <p class="px-1 text-slate-600 dark:text-slate-400 truncate max-w-80 text-sm">{{ documentName }}</p>
-      <div v-if="ragStore.isProcessing" class="animate-spin h-4 w-4 border-2 border-blue-500 border-t-transparent rounded-full">
-        <span class="sr-only">Processing document</span>
+  <div v-show="documentName && !ragStore.error" class="flex flex-row items-center mb-2 gap-1 motion-preset-slide-up">
+    <div class="bg-slate-200/75 dark:bg-slate-800/50 p-1 rounded-lg shadow-xs w-fit">
+      <div class="flex items-center gap-2">
+        <p class="px-1 text-slate-600 dark:text-slate-400 truncate max-w-80 text-sm">{{ documentName }}</p>
+        <div v-if="ragStore.isProcessing" class="animate-spin h-4 w-4 border-2 border-blue-500 border-t-transparent rounded-full">
+          <span class="sr-only">Processing document</span>
+        </div>
+        <div v-else-if="ragStore.processedDocuments.includes(documentName)"
+             class="text-green-500 text-sm pr-1">📑
+             <span class="sr-only">Document processed</span>
+        </div>
       </div>
-      <div v-else-if="ragStore.processedDocuments.includes(documentName)" class="text-green-500 text-sm pr-1">📑 <span class="sr-only">Document processed</span></div>
     </div>
+    <UButton icon="i-heroicons-trash"
+             size="sm"
+             color="neutral"
+             variant="ghost"
+             class="text-red-400 cursor-pointer"
+             aria-label="Delete document"
+             title="Delete document"
+             @click="handleDeleteDocument" />
   </div>
   <div
        class="flex justify-between items-center gap-4 max-h-54 motion-preset-slide-up-lg motion-delay-500">

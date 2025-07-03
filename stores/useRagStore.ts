@@ -17,6 +17,14 @@ export const useRagStore = defineStore('rag', () => {
     documents.value.push(newDocument);
   }
 
+  function removeDocument(documentName: string) {
+    documents.value = documents.value.filter(doc => doc.name !== documentName);
+    processedDocuments.value = processedDocuments.value.filter(name => name !== documentName);
+    if (error.value) {
+      error.value = null;
+    }
+  }
+
   async function processDocuments(docs: File[]) {
     if (!docs.length || isProcessing.value) return;
 
@@ -159,6 +167,7 @@ export const useRagStore = defineStore('rag', () => {
     processedDocuments,
     error,
     addDocument,
+    removeDocument,
     processDocuments,
     queryRAG,
     resetDocuments,
