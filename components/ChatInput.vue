@@ -26,7 +26,6 @@ const handleFileChange = async (event) => {
   const file = event.target.files[0];
   if (!file) return;
 
-  chatStore.isLoading = true;
   try {
     if(file.type === 'application/pdf' || file.type === 'text/plain'){
       ragStore.addDocument(file);
@@ -41,8 +40,6 @@ const handleFileChange = async (event) => {
     event.target.value = '';
   } catch (error) {
     console.error('Error reading file:', error);
-  } finally {
-    chatStore.isLoading = false;
   }
 };
 </script>
