@@ -3,8 +3,13 @@ const chatStore = useChatStore();
 const ragStore = useRagStore();
 
 const reset = async () => {
-  chatStore.resetChat();
-  await ragStore.resetDocuments();
+  try {
+    chatStore.resetChat();
+    await ragStore.resetDocuments();
+  }
+  catch (error) {
+    console.error("Failed to reset chat and documents:", error);
+  }
 };
 const isResetDisabled = computed(() => !chatStore.messages.length && !ragStore.documents.length);
 
