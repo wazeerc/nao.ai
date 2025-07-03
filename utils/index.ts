@@ -10,7 +10,7 @@ type LlamaResponse = {
   thoughts: string | undefined;
   response: string;
 }
-export async function fetchLlamaResponse(input: string): Promise<LlamaResponse> {
+export async function fetchLlamaResponse(input: string, abortController?: AbortController): Promise<LlamaResponse> {
   try {
     const config = useRuntimeConfig();
     const model = config.public.ollamaModel;
@@ -29,7 +29,8 @@ export async function fetchLlamaResponse(input: string): Promise<LlamaResponse> 
         model: model,
         prompt: input,
         stream: false
-      })
+      }),
+      signal: abortController?.signal
     });
 
     if (!response.ok) {
