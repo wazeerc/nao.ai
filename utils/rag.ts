@@ -18,6 +18,7 @@ export class RAG {
   chain: Runnable | null = null;
   documents: Document[] = [];
   initialized: boolean = false;
+  abortController: AbortController | null = null;
 
   constructor() {
     this.documents = [];
@@ -71,6 +72,11 @@ export class RAG {
   }
 
   async reset() {
+    if (this.abortController) {
+      this.abortController.abort();
+      this.abortController = null;
+    }
+
     this.documents = [];
     if (this.embeddings) {
       this.vectorStore = new MemoryVectorStore(this.embeddings);
@@ -92,6 +98,7 @@ export class RAG {
       throw new Error('Memory string cannot be empty');
 
     if (!this.initialized) await this.initialize();
+    if (this.abortController?.signal.aborted) throw new Error('Operation was aborted');
 
     const memories = Array.isArray(memory) ? memory : [memory];
     const newDocuments = memories.map(
@@ -103,6 +110,8 @@ export class RAG {
     );
 
     this.documents.push(...newDocuments);
+
+    if (this.abortController?.signal.aborted)throw new Error('Operation was aborted');
     await this.vectorStore?.addDocuments(newDocuments);
   }
 
