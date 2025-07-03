@@ -4,6 +4,17 @@ import { ref, watch } from 'vue';
 const chatStore = useChatStore();
 const chatInput = ref('');
 
+const fancyPlaceholders = ref([
+  '✨ Curious minds ask...',
+  '🚀 What would you like to explore?',
+  '💡 Share your thoughts or questions...',
+  '🔍 Dive deep into any topic...',
+  '🌟 Let\'s discover something amazing...',
+  '🧠 Feed your curiosity here...',
+])
+const setRandomPlaceholder = () =>
+  fancyPlaceholders.value[Math.floor(Math.random() * fancyPlaceholders.value.length)];
+
 const handleNewMessage = () => {
   if (!chatInput.value.trim()) return;
   chatStore.sendMessage(chatInput.value);
@@ -69,7 +80,7 @@ const handleFileChange = async (event) => {
                  color="primary"
                  variant="subtle"
                  v-model="chatInput"
-                 placeholder="✨ Curious minds ask..."
+                 :placeholder="setRandomPlaceholder()"
                  :disabled="chatStore.isLoading || ragStore.isProcessing"
                  @keydown="(e) => {
                   if (e.key === 'Enter' && !e.shiftKey) {
