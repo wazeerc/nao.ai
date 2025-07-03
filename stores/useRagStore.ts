@@ -1,7 +1,8 @@
-import { RecursiveCharacterTextSplitter } from 'langchain/text_splitter';
-import { RAG } from '../utils/rag';
+import type { Document } from "@langchain/core/documents";
+import { RecursiveCharacterTextSplitter } from "langchain/text_splitter";
+import { RAG } from "../utils/rag";
 
-export const useRagStore = defineStore('rag', () => {
+export const useRagStore = defineStore("rag", () => {
   const documents = ref<File[]>([]);
   const ragInstance = ref<RAG | null>(null);
   const isProcessing = ref(false);
@@ -43,7 +44,7 @@ export const useRagStore = defineStore('rag', () => {
 
         const fileSizeInMB = doc.size / (1024 * 1024);
         if (fileSizeInMB > MAX_FILE_SIZE_MB) {
-          error.value = `File "${doc.name.slice(0,30)}..." (${fileSizeInMB.toFixed(2)} MB) exceeds the ${MAX_FILE_SIZE_MB} MB limit and will be skipped.`;
+          error.value = `File "${doc.name.slice(0, 30)}..." (${fileSizeInMB.toFixed(2)} MB) exceeds the ${MAX_FILE_SIZE_MB} MB limit and will be skipped.`;
           continue;
         }
 
@@ -58,14 +59,16 @@ export const useRagStore = defineStore('rag', () => {
           processedDocuments.value.push(doc.name);
         }
       }
-    } catch (err) {
-      if (err instanceof Error && err.name === 'AbortError') return;
-      if (err instanceof Error && err.message === 'Operation was aborted') return;
+    }
+    catch (err) {
+      if (err instanceof Error && err.name === "AbortError") return;
+      if (err instanceof Error && err.message === "Operation was aborted") return;
 
-      console.error('Error processing documents:', err);
+      console.error("Error processing documents:", err);
       error.value = err instanceof Error ? err.message : String(err);
       throw err;
-    } finally {
+    }
+    finally {
       isProcessing.value = false;
       processingAbortController.value = null;
       if (ragInstance.value) ragInstance.value.abortController = null;
@@ -73,14 +76,16 @@ export const useRagStore = defineStore('rag', () => {
   }
 
   async function extractAndSplitTextFromFile(file: File): Promise<string[]> {
-    let textContent = '';
+    let textContent = "";
 
-    if (file.type === 'text/plain') {
+    if (file.type === "text/plain") {
       textContent = await file.text();
-    } else if (file.type === 'application/pdf') {
+    }
+    else if (file.type === "application/pdf") {
       const chunks = await processPDFWithLangChain(file);
       return chunks;
-    } else {
+    }
+    else {
       throw new Error(`Unsupported file type: ${file.type}`);
     }
 
@@ -97,19 +102,19 @@ export const useRagStore = defineStore('rag', () => {
 
   async function processPDFWithLangChain(file: File): Promise<string[]> {
     try {
-      const blob = new Blob([file], { type: 'application/pdf' });
+      const blob = new Blob([file], { type: "application/pdf" });
 
-      const pdfjsModule = await import('pdfjs-dist');
+      const pdfjsModule = await import("pdfjs-dist");
       pdfjsModule.GlobalWorkerOptions.workerSrc = new URL(
-        'pdfjs-dist/build/pdf.worker.min.mjs',
-        import.meta.url
+        "pdfjs-dist/build/pdf.worker.min.mjs",
+        import.meta.url,
       ).toString();
 
-      const { WebPDFLoader } = await import('@langchain/community/document_loaders/web/pdf');
+      const { WebPDFLoader } = await import("@langchain/community/document_loaders/web/pdf");
       const loader = new WebPDFLoader(blob, {
         splitPages: true,
-        parsedItemSeparator: ' ',
-        pdfjs: () => Promise.resolve(pdfjsModule)
+        parsedItemSeparator: " ",
+        pdfjs: () => Promise.resolve(pdfjsModule),
       });
 
       const docs = await loader.load();
@@ -126,24 +131,26 @@ export const useRagStore = defineStore('rag', () => {
       }
 
       return chunks;
-    } catch (error) {
-      console.error('Error processing PDF with LangChain:', error);
-      throw new Error(`Failed to process PDF: ${error instanceof Error ? error.message : 'Unknown error'}`);
+    }
+    catch (error) {
+      console.error("Error processing PDF with LangChain:", error);
+      throw new Error(`Failed to process PDF: ${error instanceof Error ? error.message : "Unknown error"}`);
     }
   }
 
   async function extractTextFromFile(file: File): Promise<string> {
-    if (file.type === 'text/plain') {
+    if (file.type === "text/plain") {
       return await file.text();
-    } else if (file.type === 'application/pdf') {
+    }
+    else if (file.type === "application/pdf") {
       const chunks = await processPDFWithLangChain(file);
-      return chunks.join('\n\n');
+      return chunks.join("\n\n");
     }
     throw new Error(`Unsupported file type: ${file.type}`);
   }
 
-  async function queryRAG(query: string): Promise<any> {
-    if (!ragInstance.value) throw new Error('RAG not initialized. Please upload documents first.');
+  async function queryRAG(query: string): Promise<{ context: Document[]; answer: string }> {
+    if (!ragInstance.value) throw new Error("RAG not initialized. Please upload documents first.");
     return await ragInstance.value.getRelevantMemory(query);
   }
 
@@ -171,6 +178,6 @@ export const useRagStore = defineStore('rag', () => {
     processDocuments,
     queryRAG,
     resetDocuments,
-    extractTextFromFile
-  }
+    extractTextFromFile,
+  };
 });

@@ -32,7 +32,7 @@ export class RAG {
     this.embeddingModel = config.public.embeddingModel as string;
     this.llm = new ChatOllama({
       model: this.model,
-      temperature: 0.1, //? Adjust as needed, higher = more creative responses
+      temperature: 0.1, // ? Adjust as needed, higher = more creative responses
       baseUrl: config.public.ollamaUrl as string,
     });
     this.embeddings = new OllamaEmbeddings({
@@ -41,7 +41,7 @@ export class RAG {
     });
 
     this.vectorStore = new MemoryVectorStore(this.embeddings);
-    this.retriever = this.vectorStore.asRetriever({ k: 3 }); //? Adjust k as needed, higher = more context
+    this.retriever = this.vectorStore.asRetriever({ k: 3 }); // ? Adjust k as needed, higher = more context
 
     await this.initializeChain();
     this.initialized = true;
@@ -82,7 +82,8 @@ export class RAG {
       this.vectorStore = new MemoryVectorStore(this.embeddings);
       this.retriever = this.vectorStore.asRetriever({ k: 3 });
       await this.initializeChain();
-    } else {
+    }
+    else {
       this.vectorStore = null;
       this.retriever = null;
       this.chain = null;
@@ -91,27 +92,27 @@ export class RAG {
 
   async storeMemory(memory: string | string[]): Promise<void> {
     if (!memory || (Array.isArray(memory) && memory.length === 0))
-      throw new Error('Memory content cannot be empty');
+      throw new Error("Memory content cannot be empty");
     if (Array.isArray(memory) && memory.some(m => !m || m.trim().length === 0))
-      throw new Error('Memory array cannot contain empty strings');
-    if (typeof memory === 'string' && memory.trim().length === 0)
-      throw new Error('Memory string cannot be empty');
+      throw new Error("Memory array cannot contain empty strings");
+    if (typeof memory === "string" && memory.trim().length === 0)
+      throw new Error("Memory string cannot be empty");
 
     if (!this.initialized) await this.initialize();
-    if (this.abortController?.signal.aborted) throw new Error('Operation was aborted');
+    if (this.abortController?.signal.aborted) throw new Error("Operation was aborted");
 
     const memories = Array.isArray(memory) ? memory : [memory];
     const newDocuments = memories.map(
-      (mem) =>
+      mem =>
         new Document({
           pageContent: mem,
           metadata: { source: "memory" },
-        })
+        }),
     );
 
     this.documents.push(...newDocuments);
 
-    if (this.abortController?.signal.aborted)throw new Error('Operation was aborted');
+    if (this.abortController?.signal.aborted) throw new Error("Operation was aborted");
     await this.vectorStore?.addDocuments(newDocuments);
   }
 
