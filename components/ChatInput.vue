@@ -97,6 +97,7 @@ const handleFileChange = async (event) => {
       </div>
       <UButton
         v-if="!ragStore.isProcessing"
+        :disabled="chatStore.isLoading || ragStore.isProcessing"
         icon="i-heroicons-trash"
         size="sm"
         color="neutral"
