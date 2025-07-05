@@ -1,5 +1,6 @@
 import { fetchLlamaResponse } from "@utils";
 import { ref } from "vue";
+import { useRagStore } from "./useRagStore";
 
 interface Message {
   text: string;
