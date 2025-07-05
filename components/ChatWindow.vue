@@ -15,7 +15,7 @@ watch(() => chatStore.messages, () => {
 <template>
   <section
     ref="chatContainer"
-    class="flex flex-col gap-4 w-full overflow-y-auto pb-4 rounded"
+    class="flex flex-col justify-end gap-4 w-full overflow-y-auto pb-4 rounded"
   >
     <div
       v-if="!chatStore.messages.length && !ragStore.documents.length"
