@@ -4,7 +4,7 @@
 
 **nao.ai** is Your Private AI Companion, a sleek and intuitive web interface that allows you to run and chat with powerful open-source language models directly on your own machine. Your conversations are private and happen entirely offline.
 
-![nao-ai-demo](https://github.com/user-attachments/assets/d73be367-53d6-46a8-bc5c-f23d8d9cc687)
+![naoai-demo](https://github.com/user-attachments/assets/84a727fa-3f78-4d90-8146-6421be5afafc)
 
 [![Publish Docker Images](https://github.com/wazeerc/nao.ai/actions/workflows/publish.yml/badge.svg)](https://github.com/wazeerc/nao.ai/actions/workflows/publish.yml)
 
