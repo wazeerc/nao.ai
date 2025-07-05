@@ -96,11 +96,12 @@ const handleFileChange = async (event) => {
         </div>
       </div>
       <UButton
+        v-if="!ragStore.isProcessing"
         icon="i-heroicons-trash"
         size="sm"
         color="neutral"
         variant="ghost"
-        class="text-red-400 cursor-pointer"
+        class="text-red-400 cursor-pointer motion-preset-slide-left"
         aria-label="Delete document"
         title="Delete document"
         @click="handleDeleteDocument"
