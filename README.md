@@ -7,6 +7,8 @@
 ![naoai-demo](https://github.com/user-attachments/assets/84a727fa-3f78-4d90-8146-6421be5afafc)
 
 [![Publish Docker Images](https://github.com/wazeerc/nao.ai/actions/workflows/publish.yml/badge.svg)](https://github.com/wazeerc/nao.ai/actions/workflows/publish.yml)
+![Latest release](https://img.shields.io/github/last-commit/wazeerc/nao.ai/main?label=Latest%20Release&style=plastic)
+![Version](https://img.shields.io/github/package-json/v/wazeerc/nao.ai?style=social)
 
 ## ✨ Features
 
