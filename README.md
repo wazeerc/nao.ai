@@ -55,9 +55,6 @@ NUXT_PUBLIC_OLLAMA_URL="http://localhost:11434"
 COMPOSE_PROJECT_NAME=nao-ai
 ```
 
-> [!NOTE]
-> The model will be automatically downloaded the first time you start the application. You can find more models on the [Ollama Library](https://ollama.com/library).
-
 ### 3. Run the Application
 
 ```bash
