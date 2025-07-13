@@ -149,6 +149,9 @@ echo 'Installed models: ' && docker run --rm -v nao-ai_data:/data alpine ls /dat
 - `NUXT_PUBLIC_OLLAMA_URL`: Ollama server URL used by the frontend.
 - `COMPOSE_PROJECT_NAME`: The project name for Docker Compose.
 
+> [!WARNING]  
+> nao.ai is still in development and you may experience bugs. If you do, please report them [here](https://github.com/wazeerc/nao.ai/issues).
+
 ---
 
 Made with ❤️, [Ollama](https://github.com/ollama) & [LangChain](https://github.com/langchain-ai)
