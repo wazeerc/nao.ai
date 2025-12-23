@@ -16,7 +16,7 @@
   },
   "dependencies": {
     "@langchain/community": "^0.3.47",
-    "@langchain/core": "^0.3.61",
+    "@langchain/core": "^0.3.80",
     "@langchain/ollama": "^0.2.3",
     "@nuxt/ui": "3.0.2",
     "@nuxtjs/color-mode": "^3.5.2",
