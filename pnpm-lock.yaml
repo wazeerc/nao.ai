@@ -18,7 +18,7 @@ importers:
         specifier: ^0.2.4
         version: 0.2.4(@langchain/core@0.3.80(openai@5.12.2(ws@8.19.0)(zod@3.25.76)))
       '@nuxt/ui':
-        specifier: 3.3.7
+        specifier: ^3.3.7
         version: 3.3.7(@babel/parser@7.28.6)(@netlify/blobs@9.1.2)(axios@1.13.2)(change-case@5.4.4)(db0@0.3.4)(embla-carousel@8.6.0)(ioredis@5.9.2)(jwt-decode@4.0.0)(magicast@0.5.1)(typescript@5.8.3)(vite@7.3.1(@types/node@25.0.9)(jiti@2.6.1)(lightningcss@1.30.2)(terser@5.46.0)(yaml@2.8.2))(vue-router@4.6.4(vue@3.5.26(typescript@5.8.3)))(vue@3.5.26(typescript@5.8.3))(zod@3.25.76)
       '@nuxtjs/color-mode':
         specifier: ^3.5.2
@@ -7785,7 +7785,7 @@ snapshots:
 
   '@types/node-fetch@2.6.13':
     dependencies:
-      '@types/node': 18.19.130
+      '@types/node': 25.0.9
       form-data: 4.0.5
 
   '@types/node@18.19.130':
