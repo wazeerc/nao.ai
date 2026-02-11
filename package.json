@@ -15,7 +15,7 @@
     "node": ">=18"
   },
   "dependencies": {
-    "@langchain/community": "^0.3.59",
+    "@langchain/community": "^1.1.14",
     "@langchain/core": "^0.3.80",
     "@langchain/ollama": "^0.2.4",
     "@nuxt/ui": "^3.3.7",
